@@ -13,14 +13,13 @@
 <body>
 
     <div class="container my-5">
-        <form action="EnterData.php">
+    <form action="EnterData.php">
 
             <div class="offset-3 col-6">
                 <h1 class="text-center">
-                    Register User
+                    Register Poster
                 </h1>
-                <input style="display: none;" type="text" value="registerUser" name="formType" > 
-
+                <input style="display: none;" type="text" value="registerPoster" name="formType" > 
                 <input class="form-control my-1" type="text" placeholder="User Name" name="userName" id="userName">
                 <input class="form-control my-1" type="text" name="desc" id="desc" placeholder="Description">
                 <input class="form-control my-1" type="number" placeholder="Amount" name="amount" id="amount" min="10" max="1000">

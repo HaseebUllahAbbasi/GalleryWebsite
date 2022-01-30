@@ -1,3 +1,12 @@
+<?php
+require_once "connection.php";
+
+$connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$sql = "SELECT * FROM contest";
+
+$result = $connect->query($sql);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,32 +68,46 @@
 <body>
 
     <div class="container">
-        <div class="display-1 text-center mb-3"> Create Event</div>
+        <div class="display-1 text-center mb-3"> Admin Dashboard</div>
     </div>
 
     <ul style="margin: 0.1rem;">
-            <li><a href="./adminDash.php">Home</a></li>
-            <li><a href="./createEvent.php">Create Event</a></li>
-            <li><a href="./allEvents.php">View All Events</a></li>
+        <li><a href="./adminDash.php">Home</a></li>
+        <li><a href="./createEvent.php">Create Event</a></li>
+        <li><a href="./allEvents.php">View All Events</a></li>
 
-            <li><a href="#contact"></a></li>
+        <li><a href="#contact"></a></li>
 
-            <li style="float:right"><a class="active" href="#about">Logout</a></li>
-        </ul>
-    <div class="container my-5 offset-3 col-6 ">
-        <form action="validateEvent.php">
-            <input type="text" class="form-control my-1 " name="contentName" placeholder="Contest Name " required>
-            <input type="text" class="form-control my-1" name="contentDesc" placeholder="Contest Description " required>
-            <input type="number" class="form-control my-1" name="winningPrice" placeholder="winningPrice" required>
-            <input type="time" class="form-control my-1" name="endingTime" placeholder="Contest Ending Time" required>
-            <input type="date" class="form-control my-1" name="endingDate" name="" placeholder="Contest Ending Time" required>
-            <div class="text-center">
-                <input type="submit" class="text-center btn btn-primary my-1" value="Create Event">
+        <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
+    </ul>
+    <div class="container my-3">
+        <p class="display-2 text-center">All Events</p>
+        <?php
+        if ($result->num_rows > 0) 
+        {
 
-            </div>
-        </form>
+            echo "<table class='table'>";
+            echo "<tr> <th> Id </th> <th> Contest Name  </th> <th> Contest Description  </th> 
+            <th> Contest Winning Price  </th>
+            <th> Ending Date  </th>
+            <th> Winning Person  </th>
+            
+            
+            </tr>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>     </tr>";
+                // print_r($row) . "<br>";
+            }
+
+            echo "</table>";
+        } else {
+            echo "No Contest Created Yet";
+        }
+
+        ?>
 
     </div>
+
     </div>
 
 </body>
