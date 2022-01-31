@@ -50,12 +50,12 @@ if ($typeOfUser == "user")
     {
 
         $rows = $result->fetch_assoc();
-        print_r($rows);
+        // print_r($rows);
         
         $_SESSION['Id'] =$rows['id'];        
         $_SESSION['UserName'] =$rows['name'];
         $_SESSION['wrongPassword'] = 0 ;
-        echo "<script> alert(' You Have Logined ');</script>";
+        // echo "<script> alert(' You Have Logined ');</script>";
         // header("Location: userDash.php");
         echo ' <script> window.location.assign("http://localhost/galleryWebsite/posterDash.php")</script>';
 

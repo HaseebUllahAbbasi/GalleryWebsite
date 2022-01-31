@@ -8,8 +8,7 @@ session_start();
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM contest";
-
+$sql = "SELECT * FROM photostable";
 $result = $connect->query($sql);
 
 ?>

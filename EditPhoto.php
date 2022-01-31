@@ -8,8 +8,6 @@ session_start();
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM photostable";
-$result = $connect->query($sql);
 
 ?>
 <!DOCTYPE html>
@@ -108,36 +106,40 @@ $result = $connect->query($sql);
     <div class="container my-3">
 
         <?php
-        if ($result->num_rows > 0) {
             echo  "<div class='row'>";
 
-            while ($row = $result->fetch_assoc()) {
                 
                 echo "<div class='col-3'>";
                 echo '
                 <div class="card" style="width: 18rem;">'. 
-                '<img   src="upload/' . $row['source'] . '">'.'
-                        <div class="card-body">
-                            <h5 class="card-title text-center"> ' . $row['title']   .'</h5>
-                                <p class="card-text text-center" > '.  $row['desciption']  .'  </p>
-                                <div class="text-center">
-                                <a href="./EditPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption']  .   '    " class="btn btn-primary">Edit Photo</a>
-                                
-                                </div> 
-                        </div>
+                '<img   src="upload/' . $_GET['source'] . '">'.'
+                        
                 </div>
+                <div class="card-body">
+                        
+                            <h5 class="card-title text-center"> ' . $_GET['title']   .'</h5>
+                                <p class="card-text text-center" > '.  $_GET['descrip']  .'  </p>   
+                        </div>
                 ';
+                echo '<form  action="./uploadPhoto.php" method="POST" enctype="multipart/form-data">
+                <input class="form-control" type="text" name="title" placeholder="Title" required>
+                <input class="form-control" type="text" name="desciption" placeholder="Description" required>
+                <input class="form-control" type="number" name="participantId" value="<?php echo $_SESSION["Id"]?>  " hidden>
+                <input class="form-control" type="number" name="price" placeholder="Price" required min="0">
+                
+                <div class="text-center  container col-6 offset-3  ">
+                    <input class=" form-control btn btn-primary" style="margin:2em; margin-left: 0;" type="submit">
+                </div>
+            </form>'; 
+
 
 
                 echo "</div>";
-            }
+            
 
 
             echo  "</div>";
-        } else {
-            echo "<h2> No Contest </h2> ";
-        }
-
+        
         ?>
 
     </div>
