@@ -1,6 +1,7 @@
 <?php
-require_once "connection.php";
+session_start();
 
+require_once "connection.php";
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 $sql = "SELECT * FROM contest";
 
@@ -81,7 +82,6 @@ $result = $connect->query($sql);
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
     <div class="container my-3">
-        <p class="display-1 text-center"> to implement the Current Event Stats or render the No Evetns Running</p>
         <?php
         if ($result->num_rows > 0) 
         {

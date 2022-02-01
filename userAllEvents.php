@@ -1,14 +1,13 @@
 <?php
-require_once "connection.php";
 session_start();
 // $userId = $_SESSION['UserId'];
 // $userName = $_SESSION['UserName'];
 // echo $_SESSION['UserId'];
-
-
+require_once "connection.php";
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM photostable";
+$sql = "SELECT * FROM contest";
+
 $result = $connect->query($sql);
 
 ?>
@@ -80,7 +79,7 @@ $result = $connect->query($sql);
         if(!isset($_SESSION['Id']))
         {
                 echo "<script> alert(' Not Authoruzed ');</script>";
-                // echo ' <script> window.location.assign("http://localhost/galleryWebsite/login.php")</script>';       
+                echo ' <script> window.location.assign("http://localhost/galleryWebsite/login.php")</script>';       
         }        
         
         ?>
@@ -97,41 +96,24 @@ $result = $connect->query($sql);
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
     <div class="container my-3">
-        <!-- <p class="display-1 text-center"> to implement the Current Event Stats or render the No Evetns Running</p> -->
-
         <?php
-        if ($result->num_rows > 0) {
-            echo  "<div class='row'>";
-
+        if ($result->num_rows > 0) 
+        {
+            echo "<table class='table'>";
+            echo "<tr> <th> Id </th> <th> Contest Name  </th> <th> Contest Description  </th> 
+            <th> Contest Winning Price  </th>
+            <th> Ending Date  </th>
+            <th> Winning Person  </th>   
+            </tr>";
             while ($row = $result->fetch_assoc()) {
-                
-                echo "<div class='col-3'>";
-                echo '
-                <div class="card" style="width: 18rem;">'. 
-                '<img   src="upload/' . $row['source'] . '">'.'
-                        <div class="card-body">
-                            <h5 class="card-title text-center"> ' . $row['title']   .'</h5>
-                                <p class="card-text text-center" > '.  $row['desciption']  .'  </p>
-                                <p class="card-text text-center" > Price :  '.  $row['price']  .'  </p>
-                                
-                                <div class="text-center">
-                                
-                                <a href="./buyPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Buy Photo</a>
-                                </div> 
-                        </div>
-                </div>
-                ';
-
-
-                echo "</div>";
+                echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>     </tr>";
+                // print_r($row) . "<br>";
             }
 
-
-            echo  "</div>";
+            echo "</table>";
         } else {
-            echo "<h2> No Contest </h2> ";
+            echo "No Contest Created Yet";
         }
-
 
         ?>
 

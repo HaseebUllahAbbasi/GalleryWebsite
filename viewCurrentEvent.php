@@ -8,6 +8,17 @@ session_start();
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$sql = "SELECT * FROM `contest` WHERE completed = 0;";
+$result = $connect->query($sql);
+$row = $result->fetch_assoc();
+
+
+    $id_of_event =  ($row['id']);
+    echo $id_of_event ;
+
+
+
+
 $sql = "SELECT * FROM photostable";
 $result = $connect->query($sql);
 
@@ -21,21 +32,11 @@ $result = $connect->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>Poster Dashboard</title>
+    <title>User Dashboard</title>
     <style>
         body {
             background-color: silver;
         }
-
-        img {
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 5px;
-            width: 250px;
-            /* align-items: center; */
-            align-self: center;
-        }
-
 
         div {
             font-family: 'Trebuchet MS', sans-serif;
@@ -83,29 +84,31 @@ $result = $connect->query($sql);
 <body>
 
     <div class="container">
-        <div class="display-1 text-center mb-3">Poster Dashboard</div>
+        <div class="display-1 text-center mb-3">User Dashboard</div>
     </div>
     <h1>
-        <?php
-        if (!isset($_SESSION['Id'])) {
-            echo "<script> alert(' Not Authoruzed ');</script>";
-            echo ' <script> window.location.assign("http://localhost/galleryWebsite/login.php")</script>';
-        }
-
+        <?php 
+        if(!isset($_SESSION['Id']))
+        {
+                echo "<script> alert(' Not Authoruzed ');</script>";
+                // echo ' <script> window.location.assign("http://localhost/galleryWebsite/login.php")</script>';       
+        }        
+        
         ?>
     </h1>
 
     <ul style="margin: 0.1rem;">
-        <li><a href="./posterDash.php">Home</a></li>
-        <li><a href="./participateEvent.php">Participate Event</a></li>
-        <li><a href="./allEventsPoster.php">View All Events</a></li>
-        <li><a href="./postPhoto.php">Post A photo</a></li>
-
-
+        <li><a href="./userDash.php">Home</a></li>
+        <li><a href="./myPurchasedPhotos.php">My Photos</a></li>
+        <li><a href="./viewCurrentEvent.php">View Current Event </a></li>
+        <li><a href="./userAllEvents.php">View All Events</a></li>
+        
+        <li><a href="#contact"></a></li>
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
     <div class="container my-3">
+        <!-- <p class="display-1 text-center"> to implement the Current Event Stats or render the No Evetns Running</p> -->
 
         <?php
         if ($result->num_rows > 0) {
@@ -124,7 +127,7 @@ $result = $connect->query($sql);
                                 
                                 <div class="text-center">
                                 
-                                <a href="./EditPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Edit Photo</a>
+                                <a href="./buyPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Buy Photo</a>
                                 </div> 
                         </div>
                 </div>
@@ -139,6 +142,7 @@ $result = $connect->query($sql);
         } else {
             echo "<h2> No Contest </h2> ";
         }
+
 
         ?>
 

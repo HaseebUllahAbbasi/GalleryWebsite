@@ -106,40 +106,35 @@ $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
     <div class="container my-3">
 
         <?php
-            echo  "<div class='row'>";
+        echo  "<div class='row'>";
 
-                
-                echo "<div class='col-3'>";
-                echo '
-                <div class="card" style="width: 18rem;">'. 
-                '<img   src="upload/' . $_GET['source'] . '">'.'
+
+        echo "<div>";
+        echo '
+                <div class="text-center" >' .
+            '<img  class=""  src="upload/' . $_GET['source'] . '">' . '
                         
                 </div>
-                <div class="card-body">
-                        
-                            <h5 class="card-title text-center"> ' . $_GET['title']   .'</h5>
-                                <p class="card-text text-center" > '.  $_GET['descrip']  .'  </p>   
-                        </div>
-                ';
-                echo '<form  action="./uploadPhoto.php" method="POST" enctype="multipart/form-data">
-                <input class="form-control" type="text" name="title" placeholder="Title" required>
-                <input class="form-control" type="text" name="desciption" placeholder="Description" required>
-                <input class="form-control" type="number" name="participantId" value="<?php echo $_SESSION["Id"]?>  " hidden>
-                <input class="form-control" type="number" name="price" placeholder="Price" required min="0">
-                
-                <div class="text-center  container col-6 offset-3  ">
-                    <input class=" form-control btn btn-primary" style="margin:2em; margin-left: 0;" type="submit">
-                </div>
-            </form>'; 
+                    <div class="card-body">
+                </div>';
+            echo '<form  class="container col-6 offset-3" action="./changePhotoData.php" method="GET" >
+                    <input class="form-control" type="text" value=" ' .  $_GET['title'] . ' " name="title" placeholder="Title" required>
+                    <input type="text" name="id" value="' . $_GET['id'] . '" hidden >
+                    <input class="form-control" type="text" value=" ' .  $_GET['descrip'] . '"  name="desciption" placeholder="Description" required>
+                    <input class="form-control" type="number" name="price" value=' . $_GET['price'] . trim(" ") . ' placeholder="Price"  required min="0">
+                    <div class="text-center  container col-6 offset-3  ">
+                        <input class="form-control btn btn-primary" style="margin:2em; margin-left: 0;" type="submit">
+                    </div>
+                </form>';
 
 
 
-                echo "</div>";
-            
+        echo "</div>";
 
 
-            echo  "</div>";
-        
+
+        echo  "</div>";
+
         ?>
 
     </div>
