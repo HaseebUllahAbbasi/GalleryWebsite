@@ -12,10 +12,20 @@
 
 <body>
 
-    <div class="container my-5">
+<div class="sidenav">
+    <div class="login-main-text">
+      <img src="mainpic.png"/>
+  
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="col-md-10 col-sm-12">
+      <div class="" style="margin-left:150px; margin-top:190px;">
+    <!-- <div class="container my-5"> -->
     <form action="EnterData.php">
 
-            <div class="offset-3 col-6">
+            <div class="">
                 <h1 class="text-center">
                     Register Poster
                 </h1>
@@ -26,8 +36,8 @@
                 <input class="form-control my-1" type="password" name="password" id="password" placeholder="Password">
                 <div class="row">
 
-                    <a  href="./login.php" class="my-3 offset-1 col-4  btn btn-primary" >Login</a>
-                    <input type="submit" class="my-3 offset-2 col-4  btn btn-primary" value="Register"></input>
+                    <a  href="./login.php" class="my-3 offset-1 col-4  btn btn-outline-primary" >Login</a>
+                    <input type="submit" class="my-3 offset-2 col-4  btn btn-outline-primary" value="Register"></input>
                 
                 </div>
                     
@@ -38,7 +48,9 @@
 
 
     </div>
+    </div>
 
+    </div>
 </body>
 
 </html>

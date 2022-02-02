@@ -1,0 +1,32 @@
+:root {
+    --main-column-width: 672px;
+    --normal-snippet-width: 672px;
+}
+
+:root.light {
+    /* colors */
+    --body-bg: #F2F4F7;
+}
+
+.infobox {
+    border: none;
+}
+
+.snippet {
+    padding-top: 1.2rem;
+    padding-right: 22px;
+    padding-bottom: 1.7rem;
+    padding-left: 22px;
+}
+
+.snippet:not(.no-bg) {
+    background-color: var(--bg-0);
+}
+
+:root.light .carousel-snippet .carousel .card {
+    --border-color: #EDEFF5;
+}
+
+.is-mobile .snippet {
+    padding: 0.75rem;
+}
