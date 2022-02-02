@@ -3,12 +3,13 @@ include "connection.php";
 
  session_start();
     $userId =  $_SESSION['Id'];
-    $eventId  =   $_GET['id'];
-    $_image = $_GET['image'];
+    $eventId  = $_SESSION['eventId'];  
+    echo $eventId;
+    $image = $_GET['id'];;
   $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
   $sql = "SELECT * FROM `participantrefertable` where p_id = $userId and c_id = $eventId";
-  $image = "download.jfif";
+  // $image = "download.jfif";
 
   $result = $connect->query($sql);
     
@@ -23,7 +24,7 @@ include "connection.php";
   else
   {      
 
-    $sql = "INSERT INTO `participantrefertable`(`c_id`, `p_id`) VALUES ($eventId,$userId,'$image');";
+    $sql = "INSERT INTO `participantrefertable`(`c_id`, `p_id`, `image`  ) VALUES ($eventId,$userId,$image);";
     echo $sql;
     $result = $connect->query($sql);
     if($result)

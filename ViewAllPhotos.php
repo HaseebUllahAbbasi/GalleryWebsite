@@ -1,20 +1,16 @@
-
-
-
-
 <?php
-// <a href="./SelectPhoto.php?id=' . $row['id'] . ' " class="btn btn-primary">  Participate </a>
 require_once "connection.php";
 session_start();
 // $userId = $_SESSION['UserId'];
 // $userName = $_SESSION['UserName'];
 // echo $_SESSION['UserId'];
+
 $id  = $_SESSION['Id'];
-$_SESSION['eventId'] = $_GET['id'];
+
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM photostable where participantId = $id";
+$sql = "SELECT * FROM photostable";
 $result = $connect->query($sql);
 
 ?>
@@ -33,7 +29,7 @@ $result = $connect->query($sql);
             background-color: silver;
         }
 
-        img {
+        div.img {
             border: 1px solid #ddd;
             border-radius: 4px;
             padding: 5px;
@@ -89,8 +85,6 @@ $result = $connect->query($sql);
 <body>
 
     <div class="container">
-        <div class="display-1 text-center mb-3"></div>
-        
     </div>
     <h1>
         <?php
@@ -100,7 +94,6 @@ $result = $connect->query($sql);
         }
 
         ?>
-
     </h1>
 
     <ul style="margin: 0.1rem;">
@@ -108,6 +101,7 @@ $result = $connect->query($sql);
         <li><a href="./participateEvent.php">Participate Event</a></li>
         <li><a href="./allEventsPoster.php">View All Events</a></li>
         <li><a href="./postPhoto.php">Post A photo</a></li>
+        <li><a href="./ViewAllPhotos.php">View All Photos</a></li>
 
 
 
@@ -116,9 +110,7 @@ $result = $connect->query($sql);
     <div class="container my-3">
 
         <?php
-        if ($result->num_rows > 0) 
-        {
-            echo "<h2 class='text-center mb-5'>Select Any Photo</h2>";
+        if ($result->num_rows > 0) {
             echo  "<div class='row'>";
 
             while ($row = $result->fetch_assoc()) {
@@ -134,7 +126,6 @@ $result = $connect->query($sql);
                                 
                                 <div class="text-center">
                                 
-                                <a href="./addPersonInEvent.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Select Photo</a>
                                 </div> 
                         </div>
                 </div>
@@ -143,11 +134,15 @@ $result = $connect->query($sql);
 
                 echo "</div>";
             }
-
-
             echo  "</div>";
-        } else {
-            echo "<h2> No Contest </h2> ";
+        } else 
+        {
+            // <a href="./EditPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Edit Photo</a>
+
+            echo "<div class='text-center mt-5'>";
+            echo "<img  class='mt-5' style='border-radius: 150px;' src='./images/not-found.gif'>";
+            // echo "<h2> You have not uploaded Phots </h2> ";
+            echo '</div>';
         }
 
         ?>

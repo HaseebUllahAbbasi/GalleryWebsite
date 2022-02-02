@@ -97,6 +97,8 @@ $result = $connect->query($sql);
         <li><a href="./allEventsPoster.php">View All Events</a></li>
 
         <li><a href="./postPhoto.php">Post A photo</a></li>
+        <li><a href="./ViewAllPhotos.php">View All Photos</a></li>
+
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
 

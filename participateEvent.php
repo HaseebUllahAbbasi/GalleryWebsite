@@ -68,7 +68,6 @@ $result = $connect->query($sql);
 <body>
 
     <div class="container">
-        <div class="display-1 text-center mb-3"> Admin Dashboard</div>
     </div>
 
     <ul style="margin: 0.1rem;">
@@ -76,7 +75,7 @@ $result = $connect->query($sql);
         <li><a href="./participateEvent.php">Participate Event</a></li>
         <li><a href="./allEventsPoster.php">View All Events</a></li>
         <li><a href="./postPhoto.php">Post A photo</a></li>
-
+        <li><a href="./ViewAllPhotos.php">View All Photos</a></li>
 
 
         <li><a href="#contact"></a></li>

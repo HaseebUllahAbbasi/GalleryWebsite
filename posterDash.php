@@ -29,7 +29,7 @@ $result = $connect->query($sql);
             background-color: silver;
         }
 
-        img {
+        div.img {
             border: 1px solid #ddd;
             border-radius: 4px;
             padding: 5px;
@@ -85,7 +85,6 @@ $result = $connect->query($sql);
 <body>
 
     <div class="container">
-        <div class="display-1 text-center mb-3">Poster Dashboard</div>
     </div>
     <h1>
         <?php
@@ -98,11 +97,11 @@ $result = $connect->query($sql);
     </h1>
 
     <ul style="margin: 0.1rem;">
-        <li><a href="./posterDash.php">Home</a></li>
+    <li><a href="./posterDash.php">Home</a></li>
         <li><a href="./participateEvent.php">Participate Event</a></li>
         <li><a href="./allEventsPoster.php">View All Events</a></li>
         <li><a href="./postPhoto.php">Post A photo</a></li>
-
+        <li><a href="./ViewAllPhotos.php">View All Photos</a></li>
 
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
@@ -135,11 +134,13 @@ $result = $connect->query($sql);
 
                 echo "</div>";
             }
-
-
             echo  "</div>";
-        } else {
-            echo "<h2> No Contest </h2> ";
+        } else 
+        {
+            echo "<div class='text-center mt-5'>";
+            echo "<img  class='mt-5' style='border-radius: 150px;' src='./images/not-found.gif'>";
+            // echo "<h2> You have not uploaded Phots </h2> ";
+            echo '</div>';
         }
 
         ?>

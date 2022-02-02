@@ -21,8 +21,8 @@ $result = $connect->query($sql);
 
 if($result==1)
 {
-    echo "<script> alert(' You Have inserted a new record ');</script>";
-    header("Location: login.php");
+    echo "<script> alert(' Your Account Is Successfully  Created ');</script>";
+    echo ' <script> window.location.assign("http://localhost/galleryWebsite/login.php")</script>';
 }
 
 ?>
