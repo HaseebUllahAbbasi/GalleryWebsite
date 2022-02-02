@@ -3,8 +3,8 @@ include "connection.php";
 
  session_start();
     $userId =  $_SESSION['Id'];
-  $eventId  =   $_GET['id'];
-
+    $eventId  =   $_GET['id'];
+    $_image = $_GET['image'];
   $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
   $sql = "SELECT * FROM `participantrefertable` where p_id = $userId and c_id = $eventId";

@@ -73,9 +73,11 @@ $result = $connect->query($sql);
     </div>
 
     <ul style="margin: 0.1rem;">
-        <li><a href="./adminDash.php">Home</a></li>
-        <li><a href="./participateEvent.php">Participate</a></li>
+    <li><a href="./posterDash.php">Home</a></li>
+        <li><a href="./participateEvent.php">Participate Event</a></li>
         <li><a href="./allEventsPoster.php">View All Events</a></li>
+        <li><a href="./postPhoto.php">Post A photo</a></li>
+
 
         <li><a href="#contact"></a></li>
 

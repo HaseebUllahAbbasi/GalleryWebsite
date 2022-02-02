@@ -1,12 +1,15 @@
+
+
+
+
 <?php
+// <a href="./SelectPhoto.php?id=' . $row['id'] . ' " class="btn btn-primary">  Participate </a>
 require_once "connection.php";
 session_start();
 // $userId = $_SESSION['UserId'];
 // $userName = $_SESSION['UserName'];
 // echo $_SESSION['UserId'];
-
 $id  = $_SESSION['Id'];
-
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -85,7 +88,8 @@ $result = $connect->query($sql);
 <body>
 
     <div class="container">
-        <div class="display-1 text-center mb-3">Poster Dashboard</div>
+        <div class="display-1 text-center mb-3"></div>
+        
     </div>
     <h1>
         <?php
@@ -95,6 +99,7 @@ $result = $connect->query($sql);
         }
 
         ?>
+
     </h1>
 
     <ul style="margin: 0.1rem;">
@@ -110,7 +115,9 @@ $result = $connect->query($sql);
     <div class="container my-3">
 
         <?php
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) 
+        {
+            echo "<h2 class='text-center mb-5'>Select Any Photo</h2>";
             echo  "<div class='row'>";
 
             while ($row = $result->fetch_assoc()) {
@@ -126,7 +133,7 @@ $result = $connect->query($sql);
                                 
                                 <div class="text-center">
                                 
-                                <a href="./EditPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Edit Photo</a>
+                                <a href="./addPersonInEvent.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Edit Photo</a>
                                 </div> 
                         </div>
                 </div>

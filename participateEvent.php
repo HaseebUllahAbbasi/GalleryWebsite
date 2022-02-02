@@ -72,9 +72,12 @@ $result = $connect->query($sql);
     </div>
 
     <ul style="margin: 0.1rem;">
-        <li><a href="./adminDash.php">Home</a></li>
-        <li><a href="./createEvent.php">Create Event</a></li>
-        <li><a href="./allEvents.php">View All Events</a></li>
+    <li><a href="./posterDash.php">Home</a></li>
+        <li><a href="./participateEvent.php">Participate Event</a></li>
+        <li><a href="./allEventsPoster.php">View All Events</a></li>
+        <li><a href="./postPhoto.php">Post A photo</a></li>
+
+
 
         <li><a href="#contact"></a></li>
 
@@ -100,7 +103,7 @@ $result = $connect->query($sql);
                 {
                     echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>  . <td>"  . " </td>     </tr>";
                 } else {
-                    echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>  . <td>" . '<a href="./addPersonInEvent.php?id=' . $row['id'] . ' " class="btn btn-primary">  Participate </a>' . " </td>     </tr>";
+                    echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>  . <td>" . '<a href="./SelectPhoto.php?id=' . $row['id'] . ' " class="btn btn-primary">  Participate </a>' . " </td>     </tr>";
                 }
                 // print_r($row) . "<br>";
             }

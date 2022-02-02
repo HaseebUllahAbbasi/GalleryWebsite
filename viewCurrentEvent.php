@@ -15,6 +15,7 @@ $row = $result->fetch_assoc();
 
     $id_of_event =  ($row['id']);
     echo $id_of_event ;
+    
 
 
 
