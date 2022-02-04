@@ -1,11 +1,10 @@
 <?php
 require_once "connection.php";
 session_start();
-// $userId = $_SESSION['UserId'];
-// $userName = $_SESSION['UserName'];
-// echo $_SESSION['UserId'];
 
 
+$id  = $_SESSION['Id'];
+$sql_2 = "SELECT * FROM `participanttable` where id  = $id";
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 $sql = "SELECT * FROM photostable";
@@ -52,8 +51,6 @@ $result = $connect->query($sql);
             padding: 14px 16px;
             text-decoration: none;
         }
-
-
         li a:hover:not(.active) {
             background-color: #70A0AF;
             color: black;
@@ -61,7 +58,6 @@ $result = $connect->query($sql);
             font-weight: bolder;
 
         }
-
         .active {
             background-color: #3F7CAC;
             color: white;

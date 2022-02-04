@@ -2,7 +2,15 @@
 session_start();
 
 require_once "connection.php";
+
+
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+$id  = $_SESSION['Id'];
+$sql_2 = "SELECT * FROM `participanttable` where id  = $id";
+$result_2 = $connect->query($sql_2);
+$row_2 = $result_2->fetch_assoc();
+
 $sql = "SELECT * FROM contest";
 
 $result = $connect->query($sql);
@@ -68,8 +76,22 @@ $result = $connect->query($sql);
 
 <body>
 
+<div class="container-fluid " style="padding: 10px 20px 5px 20px;">
+        <div >
+            <?php
+                echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, ".  $row_2['name']. "</p>";
+                echo "<a href='./ViewProfilePoster.php?id=".$row_2['id'] ." '>";
+                    echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/lake.jpg'>";
+                echo "</a>";
+                    echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Ratings  : ".  $row_2['ratings']. "</p>";
+                echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : ".  $row_2['amount']. "</p>";
+                
+            ?>
+            
+        </div>
+    </div>
+
     <div class="container">
-        <div class="display-1 text-center mb-3"> Poster Dashboard</div>
     </div>
 
     <ul style="margin: 0.1rem;">
@@ -77,11 +99,11 @@ $result = $connect->query($sql);
         <li><a href="./participateEvent.php">Participate Event</a></li>
         <li><a href="./allEventsPoster.php">View All Events</a></li>
         <li><a href="./postPhoto.php">Post A photo</a></li>
+        <li><a href="./ViewAllPhotos.php">View All Photos</a></li>
 
-
-        <li><a href="#contact"></a></li>
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
+
     </ul>
     <div class="container my-3">
         <?php

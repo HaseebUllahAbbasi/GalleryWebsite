@@ -6,10 +6,15 @@ session_start();
 // echo $_SESSION['UserId'];
 
 $id  = $_SESSION['Id'];
-
-
-
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+
+$sql_2 = "SELECT * FROM `participanttable` where id  = $id";
+$result_2 = $connect->query($sql_2);
+$row_2 = $result_2->fetch_assoc();
+
+
+
 $sql = "SELECT * FROM photostable";
 $result = $connect->query($sql);
 
@@ -28,6 +33,7 @@ $result = $connect->query($sql);
         body {
             background-color: silver;
         }
+
         .source {
             border: 1px solid #ddd;
             border-radius: 10px;
@@ -84,6 +90,19 @@ $result = $connect->query($sql);
 </head>
 
 <body>
+    <div class="container-fluid " style="padding: 10px 20px 5px 20px;">
+        <div>
+            <?php
+            echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, " .  $row_2['name'] . "</p>";
+            echo "<a href='./ViewProfilePoster.php?id=" . $row_2['id'] . " '>";
+            echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/lake.jpg'>";
+            echo "</a>";
+            echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Ratings  : " .  $row_2['ratings'] . "</p>";
+            echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : " .  $row_2['amount'] . "</p>";
+            ?>
+        </div>
+    </div>
+
 
     <div class="container">
     </div>
@@ -115,18 +134,18 @@ $result = $connect->query($sql);
             echo  "<div class='row'>";
 
             while ($row = $result->fetch_assoc()) {
-                
+
                 echo "<div class='col-3 mb-3'>";
                 echo '
-                <div class="card" style="width: 18rem;">'. 
-                '<img  class="source mt-1" src="upload/' . $row['source'] . '">'.'
+                <div class="card" style="width: 18rem;">' .
+                    '<img  class="source mt-1" src="upload/' . $row['source'] . '">' . '
                         <div class="card-body">
-                            <h3 class="card-title text-center"> ' . $row['title']   .'</h3>
-                            <h5 class="card-title text-center"> ' .'By : '   .  'Simpl User'   .'</h5>
+                            <h3 class="card-title text-center"> ' . $row['title']   . '</h3>
+                            <h5 class="card-title text-center"> ' . 'By : '   .  'Simpl User'   . '</h5>
                             
 
-                                <h6 class="card-text text-center" > '.  $row['desciption']  .'  </h6>
-                                <h5 class="card-text text-center" > Price :  '.  $row['price']  .'$  </h5>
+                                <h6 class="card-text text-center" > ' .  $row['desciption']  . '  </h6>
+                                <h5 class="card-text text-center" > Price :  ' .  $row['price']  . '$  </h5>
                                 
                                 <div class="text-center">
                                 
@@ -139,8 +158,7 @@ $result = $connect->query($sql);
                 echo "</div>";
             }
             echo  "</div>";
-        } else 
-        {
+        } else {
             // <a href="./EditPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Edit Photo</a>
 
             echo "<div class='text-center mt-5'>";

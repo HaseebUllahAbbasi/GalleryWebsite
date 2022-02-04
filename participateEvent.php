@@ -1,9 +1,14 @@
 <?php
 require_once "connection.php";
-
+session_start();
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM contest";
+$id  = $_SESSION['Id'];
+$sql_2 = "SELECT * FROM `participanttable` where id  = $id";
+$result_2 = $connect->query($sql_2);
+$row_2 = $result_2->fetch_assoc();
 
+
+$sql = "SELECT * FROM contest";
 $result = $connect->query($sql);
 
 ?>
@@ -66,12 +71,27 @@ $result = $connect->query($sql);
 </head>
 
 <body>
+    <div class="container-fluid " style="padding: 10px 20px 5px 20px;">
+        <div>
+            <?php
+            echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, " .  $row_2['name'] . "</p>";
+            echo "<a href='./ViewProfilePoster.php?id=" . $row_2['id'] . " '>";
+            echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/lake.jpg'>";
+            echo "</a>";
+            echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Ratings  : " .  $row_2['ratings'] . "</p>";
+            echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : " .  $row_2['amount'] . "</p>";
+
+            ?>
+
+        </div>
+    </div>
+
 
     <div class="container">
     </div>
 
     <ul style="margin: 0.1rem;">
-    <li><a href="./posterDash.php">Home</a></li>
+        <li><a href="./posterDash.php">Home</a></li>
         <li><a href="./participateEvent.php">Participate Event</a></li>
         <li><a href="./allEventsPoster.php">View All Events</a></li>
         <li><a href="./postPhoto.php">Post A photo</a></li>
@@ -98,8 +118,7 @@ $result = $connect->query($sql);
             
             </tr>";
             while ($row = $result->fetch_assoc()) {
-                if ($row['completed'] == "1") 
-                {
+                if ($row['completed'] == "1") {
                     echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>  . <td>"  . " </td>     </tr>";
                 } else {
                     echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>  . <td>" . '<a href="./SelectPhoto.php?id=' . $row['id'] . ' " class="btn btn-primary">  Participate </a>' . " </td>     </tr>";

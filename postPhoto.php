@@ -5,9 +5,16 @@ session_start();
 // $userName = $_SESSION['UserName'];
 // echo $_SESSION['UserId'];
 
-
-
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+
+$id  = $_SESSION['Id'];
+$sql_2 = "SELECT * FROM `participanttable` where id  = $id";
+$result_2 = $connect->query($sql_2);
+$row_2 = $result_2->fetch_assoc();
+
+
+
 $sql = "SELECT * FROM contest";
 
 $result = $connect->query($sql);
@@ -24,11 +31,11 @@ $result = $connect->query($sql);
 
     <title>Poster Dashboard</title>
     <style>
-        .form-control
-        {
+        .form-control {
             margin-top: 1rem;
             margin-bottom: 1rem;
         }
+
         body {
             background-color: silver;
         }
@@ -78,8 +85,22 @@ $result = $connect->query($sql);
 
 <body>
 
+    <div class="container-fluid " style="padding: 10px 20px 5px 20px;">
+        <div>
+            <?php
+            echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, " .  $row_2['name'] . "</p>";
+            echo "<a href='./ViewProfilePoster.php?id=" . $row_2['id'] . " '>";
+            echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/lake.jpg'>";
+            echo "</a>";
+            echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Ratings  : " .  $row_2['ratings'] . "</p>";
+            echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : " .  $row_2['amount'] . "</p>";
+
+            ?>
+
+        </div>
+    </div>
+
     <div class="container">
-        <div class="display-1 text-center mb-3">Poster Dashboard</div>
     </div>
     <h1>
         <?php
@@ -108,12 +129,12 @@ $result = $connect->query($sql);
         <p class="display-1 text-center"> Post A Photo</p>
         <div class="row">
             <div class="col-6 offset-3">
-                <form  action="./uploadPhoto.php" method="POST" enctype="multipart/form-data">
+                <form action="./uploadPhoto.php" method="POST" enctype="multipart/form-data">
                     <input class="form-control" type="text" name="title" placeholder="Title" required>
                     <input class="form-control" type="text" name="desciption" placeholder="Description" required>
-                    <input class="form-control" type="number" name="participantId" value="<?php echo $_SESSION["Id"]?>  " hidden>
+                    <input class="form-control" type="number" name="participantId" value="<?php echo $_SESSION["Id"] ?>  " hidden>
                     <input class="form-control" type="number" name="price" placeholder="Price" required min="0">
-                    
+
                     <input class="form-control" required type="file" name="fileToUpload" accept="image/*">
                     <div class="text-center  container col-6 offset-3  ">
                         <input class=" form-control btn btn-primary" style="margin:2em; margin-left: 0;" type="submit">

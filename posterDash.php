@@ -4,12 +4,19 @@ session_start();
 // $userId = $_SESSION['UserId'];
 // $userName = $_SESSION['UserName'];
 // echo $_SESSION['UserId'];
+$connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+$id  = $_SESSION['Id'];
+$sql_2 = "SELECT * FROM `participanttable` where id  = $id";
+$result_2 = $connect->query($sql_2);
+$row_2 = $result_2->fetch_assoc();
+
+
 
 $id  = $_SESSION['Id'];
 
 
 
-$connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 $sql = "SELECT * FROM photostable where participantId = $id";
 $result = $connect->query($sql);
 
@@ -84,6 +91,20 @@ $result = $connect->query($sql);
 </head>
 
 <body>
+    <div class="container-fluid " style="padding: 10px 20px 5px 20px;">
+        <div >
+            <?php
+                echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, ".  $row_2['name']. "</p>";
+                echo "<a href='./ViewProfilePoster.php?id=".$row_2['id'] ." '>";
+                    echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/lake.jpg'>";
+                echo "</a>";
+                    echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Ratings  : ".  $row_2['ratings']. "</p>";
+                echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : ".  $row_2['amount']. "</p>";
+                
+            ?>
+            
+        </div>
+    </div>
 
     <div class="container">
     </div>
@@ -98,7 +119,7 @@ $result = $connect->query($sql);
     </h1>
 
     <ul style="margin: 0.1rem;">
-    <li><a href="./posterDash.php">Home</a></li>
+        <li><a href="./posterDash.php">Home</a></li>
         <li><a href="./participateEvent.php">Participate Event</a></li>
         <li><a href="./allEventsPoster.php">View All Events</a></li>
         <li><a href="./postPhoto.php">Post A photo</a></li>
@@ -114,19 +135,19 @@ $result = $connect->query($sql);
             echo  "<div class='row'>";
 
             while ($row = $result->fetch_assoc()) {
-                
+
                 echo "<div class='col-3'>";
                 echo '
-                <div class="card" style="width: 18rem;">'. 
-                '<img  class="source"  src="upload/' . $row['source'] . '">'.'
+                <div class="card" style="width: 18rem;">' .
+                    '<img  class="source mt-3"  src="upload/' . $row['source'] . '">' . '
                         <div class="card-body">
-                            <h5 class="card-title text-center"> ' . $row['title']   .'</h5>
-                                <p class="card-text text-center" > '.  $row['desciption']  .'  </p>
-                                <p class="card-text text-center" > Price :  '.  $row['price']  .'  </p>
+                            <h5 class="card-title text-center"> ' . $row['title']   . '</h5>
+                                <p class="card-text text-center" > ' .  $row['desciption']  . '  </p>
+                                <p class="card-text text-center" > Price :  ' .  $row['price']  . '  </p>
                                 
                                 <div class="text-center">
                                 
-                                <a href="./EditPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Edit Photo</a>
+                                <a href="./EditPhoto.php?id=' . $row['id'] . '&source=' . $row['source'] . '&title=' . $row['title'] . '&descrip=' . $row['desciption'] . '&price= ' . $row['price'] . '     " class="btn btn-primary">Edit Photo</a>
                                 </div> 
                         </div>
                 </div>
@@ -136,8 +157,7 @@ $result = $connect->query($sql);
                 echo "</div>";
             }
             echo  "</div>";
-        } else 
-        {
+        } else {
             echo "<div class='text-center mt-5'>";
             echo "<img  class='mt-5' style='border-radius: 150px;' src='./images/not-found.gif'>";
             // echo "<h2> You have not uploaded Phots </h2> ";
