@@ -29,11 +29,12 @@ $result = $connect->query($sql);
             background-color: silver;
         }
 
-        div.img {
+        .source {
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 10px;
             padding: 5px;
             width: 250px;
+            height: 250px;
             /* align-items: center; */
             align-self: center;
         }
@@ -117,7 +118,7 @@ $result = $connect->query($sql);
                 echo "<div class='col-3'>";
                 echo '
                 <div class="card" style="width: 18rem;">'. 
-                '<img   src="upload/' . $row['source'] . '">'.'
+                '<img  class="source"  src="upload/' . $row['source'] . '">'.'
                         <div class="card-body">
                             <h5 class="card-title text-center"> ' . $row['title']   .'</h5>
                                 <p class="card-text text-center" > '.  $row['desciption']  .'  </p>

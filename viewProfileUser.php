@@ -21,7 +21,7 @@ $result = $connect->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>User Dashboard</title>
+    <title>User Profile</title>
     <style>
         body {
             background-color: silver;
@@ -75,13 +75,12 @@ $result = $connect->query($sql);
     <div class="container">
     </div>
     <h1>
-        <?php 
-        if(!isset($_SESSION['Id']))
-        {
-                echo "<script> alert(' Not Authoruzed ');</script>";
-                // echo ' <script> window.location.assign("http://localhost/galleryWebsite/login.php")</script>';       
-        }        
-        
+        <?php
+        if (!isset($_SESSION['Id'])) {
+            echo "<script> alert(' Not Authoruzed ');</script>";
+            // echo ' <script> window.location.assign("http://localhost/galleryWebsite/login.php")</script>';       
+        }
+
         ?>
     </h1>
 
@@ -90,7 +89,7 @@ $result = $connect->query($sql);
         <li><a href="./myPurchasedPhotos.php">My Photos</a></li>
         <li><a href="./viewCurrentEvent.php">View Current Event </a></li>
         <li><a href="./userAllEvents.php">View All Events</a></li>
-        
+
         <li><a href="#contact"></a></li>
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
@@ -99,43 +98,10 @@ $result = $connect->query($sql);
         <!-- <p class="display-1 text-center"> to implement the Current Event Stats or render the No Evetns Running</p> -->
 
         <?php
-        if ($result->num_rows > 0) {
-            echo  "<div class='row'>";
-
-            while ($row = $result->fetch_assoc()) {
-                
-                echo "<div class='col-3'>";
-                echo '
-                <div class="card" style="width: 18rem;">'. 
-                '<img   src="upload/' . $row['source'] . '">'.'
-                        <div class="card-body">
-                            <h5 class="card-title text-center"> ' . $row['title']   .'</h5>
-                                <p class="card-text text-center" > '.  $row['desciption']  .'  </p>
-                                <p class="card-text text-center" > Price :  '.  $row['price']  .'  </p>
-                                
-                                <div class="text-center">
-                                
-                                <a href="./buyPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Buy Photo</a>
-                                </div> 
-                        </div>
-                </div>
-                ';
-
-
-                echo "</div>";
-            }
-
-
-            echo  "</div>";
-        } else {
-            echo "<h2> No Contest </h2> ";
-        }
-
-
+        echo "View User Profile";
         ?>
 
     </div>
-
     </div>
 
 </body>

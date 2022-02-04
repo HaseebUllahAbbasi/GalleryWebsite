@@ -8,7 +8,20 @@ session_start();
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM photostable";
+$sql = "SELECT * FROM `contest` WHERE completed = 0;";
+$result = $connect->query($sql);
+$row = $result->fetch_assoc();
+
+
+    $id_of_event =  ($row['id']);
+    // echo $id_of_event ;
+    $sql = "SELECT * FROM `participantrefertable` INNER JOIN photostable ON participantrefertable.image = photostable.id where participantrefertable.c_id = $id_of_event";
+    
+
+
+
+
+// $sql = "SELECT * FROM photostable";
 $result = $connect->query($sql);
 
 ?>
@@ -67,6 +80,17 @@ $result = $connect->query($sql);
             color: white;
             font-weight: bolder;
         }
+        
+        .source {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 5px;
+            width: 250px;
+            height: 250px;
+            /* align-items: center; */
+            align-self: center;
+        }
+
     </style>
 </head>
 
@@ -104,22 +128,27 @@ $result = $connect->query($sql);
 
             while ($row = $result->fetch_assoc()) {
                 
-                echo "<div class='col-3'>";
+                echo "<div class='col-3 mb-3'>";
                 echo '
                 <div class="card" style="width: 18rem;">'. 
-                '<img   src="upload/' . $row['source'] . '">'.'
+                '<img  class="source mt-1"  src="upload/' . $row['source'] . '">'.'
                         <div class="card-body">
                             <h5 class="card-title text-center"> ' . $row['title']   .'</h5>
                                 <p class="card-text text-center" > '.  $row['desciption']  .'  </p>
                                 <p class="card-text text-center" > Price :  '.  $row['price']  .'  </p>
-                                
+                                <p class="text-center">
+                                Vote Count : '. $row['vote_count']  .  '
+
+                                </p>
+
                                 <div class="text-center">
                                 
-                                <a href="./buyPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Buy Photo</a>
                                 </div> 
                         </div>
                 </div>
                 ';
+                //<a href="./castVote.php?imgId='.$row['id'].'&c_id=' . $row['c_id'].'&p_id=' . $row['p_id'].'&voteCount=' . $row['vote_count'] . '  " class="btn btn-primary">Vote </a>
+                
 
 
                 echo "</div>";
@@ -137,6 +166,7 @@ $result = $connect->query($sql);
     </div>
 
     </div>
+
 
 </body>
 

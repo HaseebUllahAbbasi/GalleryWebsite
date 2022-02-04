@@ -8,9 +8,10 @@ session_start();
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM contest";
-
+$sql = "SELECT * FROM contest where completed = 0";
+$sql_2 = "SELECT * FROM `contest` where completed = 1 ORDER BY `contest`.`id` DESC";
 $result = $connect->query($sql);
+$result_2 = $connect->query($sql_2);
 
 ?>
 <!DOCTYPE html>
@@ -78,16 +79,14 @@ $result = $connect->query($sql);
     </div>
     <h1>
 
-        <?php 
-        if(!isset($_SESSION['UserId']))
-        {
-            if($_SESSION['UserId'] != 'admin')
-            {
+        <?php
+        if (!isset($_SESSION['UserId'])) {
+            if ($_SESSION['UserId'] != 'admin') {
                 header("Location: login.php");
             }
             header("Location: login.php");
-        }        
-        
+        }
+
         ?>
     </h1>
 
@@ -101,31 +100,94 @@ $result = $connect->query($sql);
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
     <div class="container my-3">
-        <p class="display-1 text-center"> to implement the Current Event Stats or render the No Evetns Running</p>
 
-        <?php
-        if ($result->num_rows > 0) 
-        {
+        <div class="d-flex justify-content-evenly">
+            <div class="col-6" style="background-color:yellowgreen; border-radius :20px; margin:0px 10px;border: 1px solid #977d7d; padding:  20px 50px;">
+                <?php
+                if ($result->num_rows > 0) 
+                {
+                     $row = $result->fetch_assoc(); 
+                    
+                        echo '<h2 class="text-center my-3">  Current Contest</h2>';
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-6"> Contest Name :  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' .$row['contestName'] .'  </h3>';
+                        echo  '</div>';
 
-            echo "<table class='table'>";
-            echo "<tr> <th> Id </th> <th> Contest Name  </th> <th> Contest Description  </th> 
-            <th> Contest Winning Price  </th>
-            <th> Ending Date  </th>
-            <th> Winning Person  </th>
-            
-            
-            </tr>";
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>     </tr>";
-                // print_r($row) . "<br>";
-            }
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-4 "> Description :  </h3>';
+                        echo '<h3 class=" col-8 text-end "> ' .$row['descr'] .'  </h3>';
+                        echo  '</div>';
 
-            echo "</table>";
-        } else {
-            echo "No Contest Created Yet";
-        }
+                        
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-6"> Prize :  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' .$row['winningPrice'] .'  </h3>';
+                        echo  '</div>';
 
-        ?>
+                        
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-6"> Status :  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' . 'Not Completed Yet' .'  </h3>';
+                        echo  '</div>';
+                        
+
+
+                        echo '<div class="d-flex justify-content-evenly">';
+                        echo '<a class="btn btn-success " href="./endEvent.php?eventId='. $row['id'] .'"> End Contest </a>';          
+                        echo '<a class="btn btn-primary " href="./viewEventAdmin.php?eventId='. $row['id'] .'"> View Contest </a>';          
+                        echo  '</div> ';
+                } else {
+                    echo '<h2 class="text-center my-3"> No Current Contest  </h2>';
+                }
+                ?>
+            </div>
+            <div class="col-7" style="background-color:yellowgreen; border-radius :20px;   margin:0px 10px;    border: 1px solid #977d7d; padding:  20px 50px;">
+            <?php
+                if ($result_2->num_rows > 0) 
+                {
+                     $row = $result_2->fetch_assoc(); 
+                    
+                        echo '<h2 class="text-center my-3">  Previous  Contest</h2>';
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-6"> Contest Name :  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' .$row['contestName'] .'  </h3>';
+                        echo  '</div>';
+
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-4 "> Description :  </h3>';
+                        echo '<h3 class=" col-8 text-end "> ' .$row['descr'] .'  </h3>';
+                        
+                        echo  '</div>';
+
+                        
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-6"> Prize :  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' .$row['winningPrice'] .'  </h3>';
+                        echo  '</div>';
+
+                        
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-6"> Status :  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' . 'Completed' .'  </h3>';
+                        echo  '</div>';
+                        
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-6"> Winner :  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' . $row['winnerId'] .'  </h3>';
+                        echo  '</div>';
+
+                        echo '<div class="d-flex justify-content-evenly">';
+                        echo '<a class="btn btn-primary " href="./viewEventAdmin.php?eventId='. $row['id'] .'"> View Contest </a>';          
+                        echo  '</div> ';
+                } else {
+                    echo '<h2 class="text-center my-3"> No Current Contest  </h2>';
+                }
+                ?>
+            </div>
+
+        </div>
+
 
     </div>
 

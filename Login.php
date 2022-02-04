@@ -19,7 +19,7 @@ if(isset($_SESSION['UserId']))
 </head>
 
 <body>
-  <div class="sidenav">
+  <div class="sidenav" style="background-color: #272727;">
     <div class="login-main-text">
       <img src="mainpic.png"/>
   

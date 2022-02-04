@@ -4,14 +4,19 @@ session_start();
 // $userId = $_SESSION['UserId'];
 // $userName = $_SESSION['UserName'];
 // echo $_SESSION['UserId'];
+$eventId =   $_GET['eventId'];
+// echo $eventId;
 
-$id  = $_SESSION['Id'];
+
 
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM photostable";
+$sql_2 = "select * from contest where id = $eventId";
+
+$sql = "SELECT * FROM photostable INNER JOIN participantrefertable on photostable.id = participantrefertable.image where participantrefertable.c_id = $eventId ORDER by participantrefertable.vote_count;";
 $result = $connect->query($sql);
+$result_2 = $connect->query($sql_2);
 
 ?>
 <!DOCTYPE html>
@@ -23,11 +28,12 @@ $result = $connect->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>Poster Dashboard</title>
+    <title>Admin Dashboard</title>
     <style>
         body {
             background-color: silver;
         }
+
         .source {
             border: 1px solid #ddd;
             border-radius: 10px;
@@ -98,35 +104,42 @@ $result = $connect->query($sql);
     </h1>
 
     <ul style="margin: 0.1rem;">
-        <li><a href="./posterDash.php">Home</a></li>
-        <li><a href="./participateEvent.php">Participate Event</a></li>
-        <li><a href="./allEventsPoster.php">View All Events</a></li>
-        <li><a href="./postPhoto.php">Post A photo</a></li>
-        <li><a href="./ViewAllPhotos.php">View All Photos</a></li>
-
-
+        <li><a href="./adminDash.php">Home</a></li>
+        <li><a href="./createEvent.php">Create Event</a></li>
+        <li><a href="./allEvents.php">View All Events</a></li>
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
     <div class="container my-3">
+        
+            <?php 
+                $row = $result_2->fetch_assoc();
+                // print_r($row);
+                echo "<div class='text-center'>"; 
+                echo "<h1>Contest Name :  " .$row['contestName']. "  </h1>";            
+                echo "<h2>Winning Prize :  " .$row['winningPrice']. "  </h2>";            
+                echo "<h2>Ending Date  :  " .$row['endTime']. "  </h2>";            
+                echo "<h2> Description  :  " .$row['descr']. "  </h2>";            
+                echo "</div>";
+            ?>
 
         <?php
         if ($result->num_rows > 0) {
             echo  "<div class='row'>";
 
-            while ($row = $result->fetch_assoc()) {
-                
+            while ($row = $result->fetch_assoc()) 
+            {
+                // print_r($row);
                 echo "<div class='col-3 mb-3'>";
                 echo '
-                <div class="card" style="width: 18rem;">'. 
-                '<img  class="source mt-1" src="upload/' . $row['source'] . '">'.'
+                <div class="card" style="width: 18rem;">' .
+                    '<img  class="source mt-1" src="upload/' . $row['source'] . '">' . '
                         <div class="card-body">
-                            <h3 class="card-title text-center"> ' . $row['title']   .'</h3>
-                            <h5 class="card-title text-center"> ' .'By : '   .  'Simpl User'   .'</h5>
-                            
-
-                                <h6 class="card-text text-center" > '.  $row['desciption']  .'  </h6>
-                                <h5 class="card-text text-center" > Price :  '.  $row['price']  .'$  </h5>
+                            <h3 class="card-title text-center"> ' . $row['title']   . '</h3>
+                            <h5 class="card-title text-center"> ' . 'By : '   .  'Simpl User'   . '</h5>
+                                <h6 class="card-text text-center" > ' .  $row['desciption']  . '  </h6>
+                                <h5 class="card-text text-center" > Price :  ' .  $row['price']  . '$  </h5>
+                                <h5 class="card-text text-center" > Votes  :  ' .  $row['vote_count']  . '  </h5>
                                 
                                 <div class="text-center">
                                 
@@ -139,8 +152,7 @@ $result = $connect->query($sql);
                 echo "</div>";
             }
             echo  "</div>";
-        } else 
-        {
+        } else {
             // <a href="./EditPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Edit Photo</a>
 
             echo "<div class='text-center mt-5'>";
