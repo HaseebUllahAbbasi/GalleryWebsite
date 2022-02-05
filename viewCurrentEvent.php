@@ -18,9 +18,6 @@ $row = $result->fetch_assoc();
     $sql = "SELECT * FROM `participantrefertable` INNER JOIN photostable ON participantrefertable.image = photostable.id where participantrefertable.c_id = $id_of_event";
     
 
-
-
-
 // $sql = "SELECT * FROM photostable";
 $result = $connect->query($sql);
 
@@ -34,7 +31,7 @@ $result = $connect->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>User Dashboard</title>
+    <title>Poster Dashboard</title>
     <style>
         body {
             background-color: silver;
@@ -80,6 +77,17 @@ $result = $connect->query($sql);
             color: white;
             font-weight: bolder;
         }
+        
+        .source {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 5px;
+            width: 250px;
+            height: 250px;
+            /* align-items: center; */
+            align-self: center;
+        }
+
     </style>
 </head>
 
@@ -132,11 +140,12 @@ $result = $connect->query($sql);
 
                                 <div class="text-center">
                                 
-                                <a href="./castVote.php?imgId='.$row['id'].'&c_id=' . $row['c_id'].'&p_id=' . $row['p_id'].'&voteCount=' . $row['vote_count'] . '  " class="btn btn-primary">Vote </a>
                                 </div> 
                         </div>
                 </div>
                 ';
+                //<a href="./castVote.php?imgId='.$row['id'].'&c_id=' . $row['c_id'].'&p_id=' . $row['p_id'].'&voteCount=' . $row['vote_count'] . '  " class="btn btn-primary">Vote </a>
+                
 
 
                 echo "</div>";
@@ -158,4 +167,4 @@ $result = $connect->query($sql);
 
 </body>
 
-</html>
+</html> 

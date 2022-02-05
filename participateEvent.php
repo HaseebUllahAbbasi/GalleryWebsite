@@ -76,7 +76,7 @@ $result = $connect->query($sql);
             <?php
             echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, " .  $row_2['name'] . "</p>";
             echo "<a href='./ViewProfilePoster.php?id=" . $row_2['id'] . " '>";
-            echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/lake.jpg'>";
+            echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/".$row_2['profile'] ."'>";
             echo "</a>";
             echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Ratings  : " .  $row_2['ratings'] . "</p>";
             echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : " .  $row_2['amount'] . "</p>";
@@ -91,12 +91,13 @@ $result = $connect->query($sql);
     </div>
 
     <ul style="margin: 0.1rem;">
-        <li><a href="./posterDash.php">Home</a></li>
+    <li><a href="./posterDash.php">Home</a></li>
+        <li><a href="./viewCurrentEventPoster.php">View Current event</a></li>
         <li><a href="./participateEvent.php">Participate Event</a></li>
         <li><a href="./allEventsPoster.php">View All Events</a></li>
         <li><a href="./postPhoto.php">Post A photo</a></li>
         <li><a href="./ViewAllPhotos.php">View All Photos</a></li>
-
+        <li><a href="#contact"></a></li>
 
         <li><a href="#contact"></a></li>
 

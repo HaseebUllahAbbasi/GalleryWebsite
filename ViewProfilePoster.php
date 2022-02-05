@@ -10,8 +10,10 @@ $id  = $_SESSION['Id'];
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM photostable where participantId = $id";
+$sql = "SELECT * FROM `participanttable` where  id = $id";
 $result = $connect->query($sql);
+$row =  $result->fetch_assoc();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,6 +85,21 @@ $result = $connect->query($sql);
 </head>
 
 <body>
+<div class="container-fluid " style="padding: 10px 20px 5px 20px;">
+        <div >
+            <?php
+                echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, ".  $row['name']. "</p>";
+                echo "<a href='./ViewProfilePoster.php?id=".$row['id'] ." '>";
+                    echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/".$row['profile'] ."'>";
+                echo "</a>";
+                    echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Ratings  : ".  $row['ratings']. "</p>";
+                echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : ".  $row['amount']. "</p>";
+                
+            ?>
+            
+        </div>
+    </div>
+
 
     <div class="container">
     </div>
@@ -97,7 +114,7 @@ $result = $connect->query($sql);
     </h1>
 
     <ul style="margin: 0.1rem;">
-    <li><a href="./posterDash.php">Home</a></li>
+        <li><a href="./posterDash.php">Home</a></li>
         <li><a href="./participateEvent.php">Participate Event</a></li>
         <li><a href="./allEventsPoster.php">View All Events</a></li>
         <li><a href="./postPhoto.php">Post A photo</a></li>
@@ -106,12 +123,29 @@ $result = $connect->query($sql);
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
-    <div class="container my-3">
+    <div class="container text-center my-3">
 
         <?php
-
-            echo "Print the Data of the Poster";
+        print_r($row);
+        echo '<div class="text-center">';
+        echo '<div class="card" style="width: 18rem;">
+            <div class="text-center">
+            
+            <img class="card-img-top" src="./upload/'.$row['profile'] .'" style="height:200px; width:200px; border-radius:100px;" alt="Card image cap">
         
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-center"> ' . $row['name'] . ' </h5>
+              <p class="card-text">' . $row['descr'] . '. </p>
+              <p class="card-text">' . "User@gmail.com" . '. </p>
+              <p class="card-text">' . "0900987721.com" . '. </p>
+              <a href="#" class="btn btn-primary">Change Profile Data</a>
+            </div>
+          </div>';
+        echo '</div>';
+
+
+
         ?>
 
     </div>

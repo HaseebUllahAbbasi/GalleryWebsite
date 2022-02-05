@@ -3,19 +3,24 @@ require_once "connection.php";
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-$name = $_GET["userName"];
-$desc = $_GET["desc"];
-$password = $_GET["password"];
-$amount= $_GET["amount"];
-$formType = $_GET["formType"];
+$name = $_POST["userName"];
+$desc = $_POST["desc"];
+$password = $_POST["password"];
+$amount= $_POST["amount"];
+$formType = $_POST["formType"];
+
 if("registerPoster"== $formType )
 {
-   $sql = "INSERT INTO participanttable( `name`, `amount` ,`descr`,  `password`) VALUES ('$name', 50 ,'$desc',  '$password' )";
+    $images = $_FILES["fileToUpload"]['name'];
+    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "upload/".$_FILES["fileToUpload"]["name"]);
+   $sql = "INSERT INTO participanttable( `name`, `amount` ,`descr`,  `password`, `profile`) VALUES ('$name', 50 ,'$desc',  '$password', '$images' )";
    
 }
 else if("registerUser"== $formType ) 
 {
-    $sql = "INSERT INTO user_table( `name`, `amount`, `bio`, `password`) VALUES ('$name', $amount, '$desc',  '$password' )";
+    $images = $_FILES["fileToUpload"]['name'];
+    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "upload/".$_FILES["fileToUpload"]["name"]);
+    $sql = "INSERT INTO user_table( `name`, `amount`, `bio`, `password`, `profile`) VALUES ('$name', $amount, '$desc',  '$password', '$images' )";
 }
 $result = $connect->query($sql);
 

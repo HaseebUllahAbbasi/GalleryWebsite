@@ -11,8 +11,6 @@
 </head>
 
 <body>
-    
-    
 <div class="sidenav">
     <div class="login-main-text">
       <img src="mainpic.png"/>
@@ -24,7 +22,7 @@
     <div class="col-md-10 col-sm-12">
       <div class="" style="margin-left:150px; margin-top:190px;">
     <!-- <div class="container my-5"> -->
-        <form action="EnterData.php">
+    <form action="EnterData.php" method="POST" enctype="multipart/form-data">
 
             <div class="">
                 <h1 class="text-center ">
@@ -36,6 +34,8 @@
                 <input class="form-control my-1" type="text" name="desc" id="desc" placeholder="Description">
                 <input class="form-control my-1" type="number" placeholder="Amount" name="amount" id="amount" min="10" max="1000">
                 <input class="form-control my-1" type="password" name="password" id="password" placeholder="Password">
+                <input class="form-control" required type="file" name="fileToUpload" accept="image/*">
+
                 <div class="row">
 
                     <a  href="./login.php" class="my-3 offset-1 col-4  btn btn-outline-primary" >Login</a>

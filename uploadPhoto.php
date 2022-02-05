@@ -17,6 +17,7 @@ include_once "connection.php";
     $sql = "INSERT INTO photostable (`title`, `desciption`, `source`,`participantId`, `price`) VALUES ('$title', '$desciption','$images' , $posterId, $price)";
     move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "upload/".$_FILES["fileToUpload"]["name"]);
     $res = $connection->query($sql);
+
     
     if($res)
     {
