@@ -5,9 +5,14 @@ session_start();
 // $userName = $_SESSION['UserName'];
 // echo $_SESSION['UserId'];
 
+$id  = $_SESSION['Id'];
+
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$sql = "SELECT * FROM `participanttable` where  id = $id";
+$result = $connect->query($sql);
+$row =  $result->fetch_assoc();
 
 ?>
 <!DOCTYPE html>
@@ -19,17 +24,18 @@ $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>Photographer : Edit Profile</title>
+    <title>Photographer Profile</title>
     <style>
         body {
             background-color: silver;
         }
 
-        img {
+        .source {
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 10px;
             padding: 5px;
             width: 250px;
+            height: 250px;
             /* align-items: center; */
             align-self: center;
         }
@@ -79,10 +85,22 @@ $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 </head>
 
 <body>
-
-    <div class="container">
-        <div class="display-1 text-center mb-3">Poster Dashboard</div>
+<div class="container-fluid " style="padding: 10px 20px 5px 20px;">
+        <div >
+            <?php
+                echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, ".  $row['name']. "</p>";
+                echo "<a href='./ViewProfilePoster.php?id=".$row['id'] ." '>";
+                    echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/".$row['profile'] ."'>";
+                echo "</a>";
+                    echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Ratings  : ".  $row['ratings']. "</p>";
+                echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : ".  $row['amount']. "</p>";
+                
+            ?>
+            
+        </div>
     </div>
+
+
     <h1>
         <?php
         if (!isset($_SESSION['Id'])) {
@@ -98,48 +116,17 @@ $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
         <li><a href="./participateEvent.php">Participate Event</a></li>
         <li><a href="./allEventsPoster.php">View All Events</a></li>
         <li><a href="./postPhoto.php">Post A photo</a></li>
-
+        <li><a href="./ViewAllPhotos.php">View All Photos</a></li>
 
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
-    <div class="container my-3">
-
-        <?php
-        echo  "<div class='row'>";
 
 
-        echo "<div>";
-        echo '
-                <div class="text-center" >' .
-            '<img  class=""  src="upload/' . $_GET['source'] . '">' . '
-                        
-                </div>
-                    <div class="card-body">
-                </div>';
-            echo '<form  class="container col-6 offset-3" action="./changePhotoData.php" method="GET" >
-                    <input class="form-control" type="text" value=" ' .  $_GET['title'] . ' " name="title" placeholder="Title" required>
-                    <input type="text" name="id" value="' . $_GET['id'] . '" hidden >
-                    <input class="form-control" type="text" value=" ' .  $_GET['descrip'] . '"  name="desciption" placeholder="Description" required>
-                    <input class="form-control" type="number" name="price" value=' . $_GET['price'] . trim(" ") . ' placeholder="Price"  required min="0">
-                    <div class="text-center  container col-6 offset-3  ">
-                        <input class="form-control btn btn-primary" style="margin:2em; margin-left: 0;" type="submit">
-                    </div>
-                </form>';
-
-
-
-        echo "</div>";
-
-
-
-        echo  "</div>";
-
-        ?>
-
+    <div class="container  text-center">
+            
     </div>
 
-    </div>
 
 </body>
 

@@ -6,9 +6,9 @@ session_start();
 // echo $_SESSION['UserId'];
 
 
-
+$id =  $_SESSION['Id'];
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM photostable";
+$sql = "SELECT * FROM photostable where owner = $id";
 $result = $connect->query($sql);
 
 ?>
@@ -124,7 +124,7 @@ $result = $connect->query($sql);
                                 
                                 <div class="text-center">
                                 
-                                <a href="./buyPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Buy Photo</a>
+                                <a href="./download.php?file='. $row['source'].'" class="btn btn-primary">Download Photo</a>
                                 </div> 
                         </div>
                 </div>
@@ -137,7 +137,13 @@ $result = $connect->query($sql);
 
             echo  "</div>";
         } else {
-            echo "<h2> No Contest </h2> ";
+            
+            echo "<div class='text-center mt-5'>";
+            echo "<img  class='mt-5' style='border-radius: 150px;' src='./images/not-found.gif'>";
+            echo "<div class='display-5 text-center mt-3'> You have not purchased Photos Yet  </div";
+            
+            echo '</div>';
+
         }
 
 

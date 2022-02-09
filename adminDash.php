@@ -9,10 +9,9 @@ session_start();
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 $sql = "SELECT * FROM contest where completed = 0";
-$sql_2 = "SELECT * FROM `contest` where completed = 1 ORDER BY `contest`.`id` DESC";
+$sql_2 = "SELECT * FROM `contest` INNER JOIN participanttable on contest.winnerId = participanttable.id where completed = 1 ORDER BY `contest`.`id` DESC";
 $result = $connect->query($sql);
 $result_2 = $connect->query($sql_2);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -174,14 +173,15 @@ $result_2 = $connect->query($sql_2);
                         
                         echo '<div class="row">'; 
                         echo '<h3 class=" col-6"> Winner :  </h3>';
-                        echo '<h3 class=" col-6 text-end "> ' . $row['winnerId'] .'  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' . $row['name'] .'  </h3>';
                         echo  '</div>';
 
                         echo '<div class="d-flex justify-content-evenly">';
                         echo '<a class="btn btn-primary " href="./viewEventAdmin.php?eventId='. $row['id'] .'"> View Contest </a>';          
                         echo  '</div> ';
                 } else {
-                    echo '<h2 class="text-center my-3"> No Current Contest  </h2>';
+                    
+                    echo '<h2 class="text-center my-3"> No Data Previous Contest   </h2>';
                 }
                 ?>
             </div>

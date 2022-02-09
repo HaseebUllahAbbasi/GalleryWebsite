@@ -68,7 +68,7 @@ $result = $connect->query($sql);
 <body>
 
     <div class="container">
-        <div class="display-1 text-center mb-3"> Admin Dashboard</div>
+        <div class="display-1 text-center mb-3"> Events</div>
     </div>
 
     <ul style="margin: 0.1rem;">
@@ -81,7 +81,6 @@ $result = $connect->query($sql);
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
     <div class="container my-3">
-        <p class="display-2 text-center">All Events</p>
         <?php
         if ($result->num_rows > 0) 
         {
@@ -94,14 +93,28 @@ $result = $connect->query($sql);
             
             
             </tr>";
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>     </tr>";
+            while ($row = $result->fetch_assoc()) 
+            {
+                // echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>     </tr>";
+                echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" ;
+                if($row['winnerId']==0)
+                {
+                    echo 'Not Decided Yet' . " </td>     </tr>";
+                }  
+                else
+
+                    echo  $row['winnerId'] . " </td>     </tr>";
+               
                 // print_r($row) . "<br>";
             }
 
             echo "</table>";
         } else {
-            echo "No Contest Created Yet";
+            
+            echo "<div class='text-center mt-5'>";
+            echo "<img  class='mt-5' style='border-radius: 150px;' src='./images/not-found.gif'>";
+            echo "<div class='display-5 text-center mt-3'> No Photos Uploaded   </div";
+            echo '</div>';
         }
 
         ?>

@@ -99,20 +99,34 @@ $result = $connect->query($sql);
         <?php
         if ($result->num_rows > 0) 
         {
-            echo "<table class='table'>";
+            echo "<table class='table table-striped'>";
             echo "<tr> <th> Id </th> <th> Contest Name  </th> <th> Contest Description  </th> 
             <th> Contest Winning Price  </th>
             <th> Ending Date  </th>
             <th> Winning Person  </th>   
             </tr>";
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>     </tr>";
+            while ($row = $result->fetch_assoc()) 
+            {
+                echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" ;
+                if($row['winnerId']==0)
+                {
+                    echo 'Not Decided Yet' . " </td>     </tr>";
+                }  
+                else
+
+                    echo  $row['winnerId'] . " </td>     </tr>";
+                 
                 // print_r($row) . "<br>";
             }
 
             echo "</table>";
         } else {
-            echo "No Contest Created Yet";
+            
+            
+            echo "<div class='text-center mt-5'>";
+            echo "<img  class='mt-5' style='border-radius: 150px;' src='./images/not-found.gif'>";
+            echo "<div class='display-5 text-center mt-3'> No Events Created Yet  </div";
+            echo '</div>';
         }
 
         ?>

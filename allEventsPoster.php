@@ -25,7 +25,7 @@ $result = $connect->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>Admin Dashboard</title>
+    <title> Poster : All Events</title>
     <style>
         body {
             background-color: silver;
@@ -119,8 +119,18 @@ $result = $connect->query($sql);
             <th> Ending Date  </th>
             <th> Winning Person  </th>   
             </tr>";
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>     </tr>";
+            while ($row = $result->fetch_assoc()) 
+            {
+                // echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>     </tr>";
+                echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" ;
+                if($row['winnerId']==0)
+                {
+                    echo 'Not Decided Yet' . " </td>     </tr>";
+                }  
+                else
+                    echo  $row['winnerId'] . " </td>     </tr>";
+               
+
                 // print_r($row) . "<br>";
             }
 

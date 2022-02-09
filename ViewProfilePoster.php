@@ -24,7 +24,7 @@ $row =  $result->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>Poster Profile</title>
+    <title>Photographer Profile</title>
     <style>
         body {
             background-color: silver;
@@ -102,6 +102,7 @@ $row =  $result->fetch_assoc();
 
 
     <div class="container">
+
     </div>
     <h1>
         <?php
@@ -123,23 +124,24 @@ $row =  $result->fetch_assoc();
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
-    <div class="container text-center my-3">
 
+
+    <div class="container col-5 offset-4 my-3">
         <?php
-        print_r($row);
-        echo '<div class="text-center">';
+        echo '<div class="text-center ">';
+        
         echo '<div class="card" style="width: 18rem;">
             <div class="text-center">
             
-            <img class="card-img-top" src="./upload/'.$row['profile'] .'" style="height:200px; width:200px; border-radius:100px;" alt="Card image cap">
+            <img class="card-img-top mt-3" src="./upload/'.$row['profile'] .'" style="height:200px; width:200px; border-radius:100px;" alt="Card image cap">
         
             </div>
             <div class="card-body">
               <h5 class="card-title text-center"> ' . $row['name'] . ' </h5>
-              <p class="card-text">' . $row['descr'] . '. </p>
-              <p class="card-text">' . "User@gmail.com" . '. </p>
-              <p class="card-text">' . "0900987721.com" . '. </p>
-              <a href="#" class="btn btn-primary">Change Profile Data</a>
+              <p class="card-text">' . $row['descr'] . ' </p>
+              <p class="card-text">' . "User@gmail.com" . ' </p>
+              <p class="card-text">' . "0900987721.com" . ' </p>
+              <a href="./ChangeDataPoster.php?id='.  $row['id'] . ' " class="btn btn-primary">Change Profile Data</a>
             </div>
           </div>';
         echo '</div>';
@@ -150,7 +152,6 @@ $row =  $result->fetch_assoc();
 
     </div>
 
-    </div>
 
 </body>
 

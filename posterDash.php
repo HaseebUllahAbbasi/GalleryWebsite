@@ -7,6 +7,7 @@ session_start();
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 $id  = $_SESSION['Id'];
+// print_r($_SESSION);
 $sql_2 = "SELECT * FROM `participanttable` where id  = $id";
 $result_2 = $connect->query($sql_2);
 $row_2 = $result_2->fetch_assoc();
@@ -30,7 +31,7 @@ $result = $connect->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>Poster Dashboard</title>
+    <title>Photographer Dashboard</title>
     <style>
         body {
             background-color: silver;
@@ -111,7 +112,8 @@ $result = $connect->query($sql);
     </div>
     <h1>
         <?php
-        if (!isset($_SESSION['Id'])) {
+        if (!isset($_SESSION['Id'])) 
+        {
             echo "<script> alert(' Not Authoruzed ');</script>";
             echo ' <script> window.location.assign("http://localhost/galleryWebsite/login.php")</script>';
         }
@@ -160,10 +162,15 @@ $result = $connect->query($sql);
                 echo "</div>";
             }
             echo  "</div>";
-        } else {
+        } else 
+        {
             echo "<div class='text-center mt-5'>";
             echo "<img  class='mt-5' style='border-radius: 150px;' src='./images/not-found.gif'>";
-            // echo "<h2> You have not uploaded Phots </h2> ";
+            echo "<div> ";
+            // echo "<a' href='./posterDash.php'> Upload </a>"; 
+            echo "<a href='./postPhoto.php'> <button class='btn btn-primary mt-3'>Let's Upload Picture </button>  </a> ";
+            echo '</div>';
+            
             echo '</div>';
         }
 

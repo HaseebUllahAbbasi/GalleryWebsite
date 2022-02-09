@@ -8,13 +8,12 @@ session_start();
 
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM photostable";
+$sql = "SELECT * FROM `photostable` WHERE owner is NULL";
 $result = $connect->query($sql);
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,6 +25,17 @@ $result = $connect->query($sql);
         body {
             background-color: silver;
         }
+
+        .source {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 5px;
+            width: 250px;
+            height: 250px;
+            /* align-items: center; */
+            align-self: center;
+        }
+
 
         div {
             font-family: 'Trebuchet MS', sans-serif;
@@ -106,17 +116,22 @@ $result = $connect->query($sql);
                 
                 echo "<div class='col-3'>";
                 echo '
-                <div class="card" style="width: 18rem;">'. 
-                '<img   src="upload/' . $row['source'] . '">'.'
+                <div class="card mt-3" style="width: 18rem; height: 30rem;">'. 
+                '<img class="source mt-3"   src="upload/' . $row['source'] . '">'.'
                         <div class="card-body">
                             <h5 class="card-title text-center"> ' . $row['title']   .'</h5>
                                 <p class="card-text text-center" > '.  $row['desciption']  .'  </p>
                                 <p class="card-text text-center" > Price :  '.  $row['price']  .'  </p>
-                                
-                                <div class="text-center">
-                                
-                                <a href="./buyPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Buy Photo</a>
-                                </div> 
+                                <div class="text-center">';
+                    if($row['price']==0)
+                    {
+                    echo '<a href="./download.php?file='.$row['source'].'" class="btn btn-primary">Download  Photo</a>';
+
+                    }
+                    else
+                    echo '<a href="./buyPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Buy Photo</a>';
+
+                    echo '</div> 
                         </div>
                 </div>
                 ';
@@ -127,8 +142,14 @@ $result = $connect->query($sql);
 
 
             echo  "</div>";
-        } else {
-            echo "<h2> No Contest </h2> ";
+        } else 
+        {
+            echo "<div class='text-center mt-5'>";
+            echo "<img  class='mt-5' style='border-radius: 150px;' src='./images/not-found.gif'>";
+            echo "<div class='display-5 text-center mt-3'> No Photos Uploaded   </div";
+            echo '</div>';
+
+            // echo "<h2> No Contest </h2> ";
         }
 
 

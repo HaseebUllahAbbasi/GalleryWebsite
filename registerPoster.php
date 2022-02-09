@@ -27,19 +27,22 @@
 
             <div class="">
                 <h1 class="text-center">
-                    Register Poster
+                    Register Photographer
                 </h1>
 
-                <input style="display: none;" type="text" value="registerPoster" name="formType" > 
-                <input class="form-control my-1" type="text" placeholder="User Name" name="userName" id="userName">
-                <input class="form-control my-1" type="text" name="desc" id="desc" placeholder="Description">
-                <input class="form-control my-1" type="number" placeholder="Amount" name="amount" id="amount" min="10" max="1000">
-                <input class="form-control my-1" type="password" name="password" id="password" placeholder="Password">
-                <input class="form-control" required type="file" name="fileToUpload" accept="image/*">
+                <input style="display: none;" type="text" value="registerPoster" name="formType" required> 
+                <input class="form-control my-1" type="text" placeholder="User Name" name="userName" id="userName" required>
+                <input class="form-control my-1" type="text" name="email" id="email" placeholder="Email" required>
+                <input class="form-control my-1" type="number" placeholder="Amount" name="amount" id="amount" min="10" max="1000" required>
+                <input class="form-control my-1" type="password" name="password" id="password" placeholder="Password" onchange="checkPassword()" required >
+                <input class="form-control my-1" type="password" name="Re-password" id="Re-password" placeholder="Re-Enter Password" onchange="checkPassword()" required>
                 
+                <input class="form-control" required type="file" name="fileToUpload" accept="image/*" required>
+
                 <div class="row">
-                    <a  href="./login.php" class="my-3 offset-1 col-4  btn btn-outline-primary" >Login</a>
-                    <input type="submit" class="my-3 offset-2 col-4  btn btn-outline-primary" value="Register"></input>
+
+                    <a  href="./login.php"  class="my-3 offset-1 col-4  btn btn-outline-primary" >Login</a>
+                    <input type="submit" id="submit" class="my-3 offset-2 col-4  btn btn-outline-primary" value="Register"></input>
                 
                 </div>
                     
@@ -48,11 +51,32 @@
 
     </div>
 
-
-    </div>
     </div>
 
     </div>
+
+
+    </div>
+    <script>
+      const checkPassword = ()=>
+      {
+      
+      const password =  document.getElementById('password').value;
+      const RePassword =  document.getElementById('Re-password').value;
+      const submit =  document.getElementById('submit');
+      console.log(password + " "+ RePassword);
+      if(password != RePassword)
+      {
+        console.log(submit);
+        submit.disabled = true;
+      }
+      else
+      {
+        submit.disabled = false;
+
+      }
+      }
+
+    </script>
 </body>
-
 </html>

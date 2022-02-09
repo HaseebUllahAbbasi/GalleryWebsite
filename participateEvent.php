@@ -21,7 +21,7 @@ $result = $connect->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>Admin Dashboard</title>
+    <title>Poster: Participate Event</title>
     <style>
         body {
             background-color: silver;
@@ -108,7 +108,7 @@ $result = $connect->query($sql);
         <?php
         if ($result->num_rows > 0) {
 
-            echo "<table class='table'>";
+            echo "<table class='table table-striped'>";
             echo "<tr> <th> Id </th> <th> Contest Name  </th> <th> Contest Description  </th> 
             <th> Contest Winning Price  </th>
             <th> Ending Date  </th>
@@ -119,10 +119,27 @@ $result = $connect->query($sql);
             
             </tr>";
             while ($row = $result->fetch_assoc()) {
-                if ($row['completed'] == "1") {
+                if ($row['completed'] == "1") 
+                {
+                    if($row['winnerId']==0)
+                    {
+                    echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . 'Not Refrenced' . " </td>  . <td>"  . " </td>     </tr>";
+
+                    }
+                    else
                     echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>  . <td>"  . " </td>     </tr>";
-                } else {
-                    echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>  . <td>" . '<a href="./SelectPhoto.php?id=' . $row['id'] . ' " class="btn btn-primary">  Participate </a>' . " </td>     </tr>";
+
+                    
+                } else 
+                {
+                    if($row['winnerId']==0)
+                    {
+                        echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . 'Not Decided Yet' . " </td>  . <td>" . '<a href="./SelectPhoto.php?id=' . $row['id'] . ' " class="btn btn-primary">  Participate </a>' . " </td>     </tr>";
+                    }
+                    else
+
+                        echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . 'Not Decided Yet' . " </td>  . <td>" . '<a href="./SelectPhoto.php?id=' . $row['id'] . ' " class="btn btn-primary">  Participate </a>' . " </td>     </tr>";
+                
                 }
                 // print_r($row) . "<br>";
             }

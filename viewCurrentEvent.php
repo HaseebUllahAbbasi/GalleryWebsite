@@ -10,7 +10,9 @@ session_start();
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 $sql = "SELECT * FROM `contest` WHERE completed = 0;";
 $result = $connect->query($sql);
-$row = $result->fetch_assoc();
+if($result->num_rows>0)
+{
+    $row = $result->fetch_assoc();
 
 
     $id_of_event =  ($row['id']);
@@ -19,7 +21,11 @@ $row = $result->fetch_assoc();
     
 
 // $sql = "SELECT * FROM photostable";
-$result = $connect->query($sql);
+    $result = $connect->query($sql);
+
+
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -31,7 +37,7 @@ $result = $connect->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>Poster Dashboard</title>
+    <title>Photographer : Current Event</title>
     <style>
         body {
             background-color: silver;
@@ -120,7 +126,8 @@ $result = $connect->query($sql);
         <!-- <p class="display-1 text-center"> to implement the Current Event Stats or render the No Evetns Running</p> -->
 
         <?php
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) 
+        {
             echo  "<div class='row'>";
 
             while ($row = $result->fetch_assoc()) {
@@ -139,24 +146,29 @@ $result = $connect->query($sql);
                                 </p>
 
                                 <div class="text-center">
+                <a href="./castVote.php?imgId='.$row['id'].'&c_id=' . $row['c_id'].'&p_id=' . $row['p_id'].'&voteCount=' . $row['vote_count'] . '  " class="btn btn-primary">Vote </a>
+
                                 
                                 </div> 
                         </div>
                 </div>
                 ';
-                //<a href="./castVote.php?imgId='.$row['id'].'&c_id=' . $row['c_id'].'&p_id=' . $row['p_id'].'&voteCount=' . $row['vote_count'] . '  " class="btn btn-primary">Vote </a>
                 
 
 
                 echo "</div>";
             }
 
-
             echo  "</div>";
-        } else {
-            echo "<h2> No Contest </h2> ";
-        }
+        } else 
+        {
+            echo "<div class='text-center mt-5'>";
+            echo "<img  class='mt-5' style='border-radius: 150px;' src='./images/not-found.gif'>";
+            echo "<div class='display-5 text-center mt-3'> No Contest In Progress At the Moment  </div";
+            
+            echo '</div>';
 
+        }
 
         ?>
 

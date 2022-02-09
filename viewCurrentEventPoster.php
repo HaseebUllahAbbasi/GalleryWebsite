@@ -5,9 +5,6 @@ session_start();
 // $userName = $_SESSION['UserName'];
 // echo $_SESSION['UserId'];
 
-
-
-
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 $id  = $_SESSION['Id'];
 $sql_2 = "SELECT * FROM `participanttable` where id  = $id";
@@ -21,8 +18,9 @@ $row = $result->fetch_assoc();
 
 
 
-
 $id_of_event =  ($row['id']);
+$dataOfCurrentEvent = $row;
+
 // echo $id_of_event ;
 $sql = "SELECT * FROM `participantrefertable` INNER JOIN photostable ON participantrefertable.image = photostable.id where participantrefertable.c_id = $id_of_event";
 
@@ -39,8 +37,9 @@ $result = $connect->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
-    <title>Poster Dashboard</title>
+    <title>Photographer :Current Event</title>
     <style>
+        
         body {
             background-color: silver;
         }
@@ -143,12 +142,23 @@ $result = $connect->query($sql);
     <div class="container my-3">
         <!-- <p class="display-1 text-center"> to implement the Current Event Stats or render the No Evetns Running</p> -->
 
+
         <?php
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) 
+        {
+            echo "<div class='text-center'>"; 
+            echo "<h1>Contest Name :  " .$dataOfCurrentEvent['contestName']. "  </h1>";            
+            echo "<h2>Winning Prize :  " .$dataOfCurrentEvent['winningPrice']. "  </h2>";            
+            echo "<h2>Ending Date  :  " .$dataOfCurrentEvent['endTime']. "  </h2>";            
+            echo "<h2> Description  :  " .$dataOfCurrentEvent['descr']. "  </h2>";            
+            echo "</div>";
+
+            
             echo  "<div class='row'>";
 
-            while ($row = $result->fetch_assoc()) {
-
+            while ($row = $result->fetch_assoc()) 
+            {
+               
                 echo "<div class='col-3 mb-3'>";
                 echo '
                 <div class="card" style="width: 18rem;">' .
@@ -177,8 +187,17 @@ $result = $connect->query($sql);
 
 
             echo  "</div>";
-        } else {
-            echo "<h2> No Contest </h2> ";
+        } else 
+        {
+            
+            echo "<div class='text-center mt-5'>";
+            echo "<div class='display-5 text-center mt-3'> Not Participated In the Event   </div";
+            echo "<div>";
+            
+            echo "<a href='./participateEvent.php'> <button class='btn btn-primary'>  Click to Participate </button> </a>";
+            echo '</div>';
+
+            echo '</div>';
         }
 
 

@@ -152,12 +152,14 @@ $result_2 = $connect->query($sql_2);
                 echo "</div>";
             }
             echo  "</div>";
-        } else {
+        } else 
+        {
+
             // <a href="./EditPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Edit Photo</a>
 
-            echo "<div class='text-center mt-5'>";
+            echo "<div class='text-center'>";
             echo "<img  class='mt-5' style='border-radius: 150px;' src='./images/not-found.gif'>";
-            // echo "<h2> You have not uploaded Phots </h2> ";
+            echo "<h2> Photots Not Uploaded yet by PhotoGraphers </h2> ";
             echo '</div>';
         }
 
