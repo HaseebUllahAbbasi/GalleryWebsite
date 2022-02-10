@@ -10,8 +10,7 @@ $id  = $_SESSION['Id'];
 $sql_2 = "SELECT * FROM `participanttable` where id  = $id";
 $result_2 = $connect->query($sql_2);
 $row_2 = $result_2->fetch_assoc();
-
-$sql = "SELECT * FROM contest";
+$sql = "SELECT contest.id , winnerId,completed, name,endTime ,winningPrice , contest.descr,contestName FROM `contest` INNER join participanttable on contest.id = participanttable.id";
 
 $result = $connect->query($sql);
 
@@ -92,6 +91,7 @@ $result = $connect->query($sql);
     </div>
 
     <div class="container">
+        
     </div>
 
     <ul style="margin: 0.1rem;">
@@ -110,6 +110,10 @@ $result = $connect->query($sql);
 
     </ul>
     <div class="container my-3">
+        
+    <div class="text-center display-3">
+            All Events
+            </div>
         <?php
         if ($result->num_rows > 0) 
         {
@@ -128,7 +132,7 @@ $result = $connect->query($sql);
                     echo 'Not Decided Yet' . " </td>     </tr>";
                 }  
                 else
-                    echo  $row['winnerId'] . " </td>     </tr>";
+                    echo  $row['name'] . " </td>     </tr>";
                
 
                 // print_r($row) . "<br>";

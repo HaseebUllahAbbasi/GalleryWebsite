@@ -14,7 +14,9 @@ $row_2 = $result_2->fetch_assoc();
 
 $sql = "SELECT * FROM `contest` WHERE completed = 0;";
 $result = $connect->query($sql);
-$row = $result->fetch_assoc();
+if($result->num_rows>0)
+{
+    $row = $result->fetch_assoc();
 
 
 
@@ -26,6 +28,9 @@ $sql = "SELECT * FROM `participantrefertable` INNER JOIN photostable ON particip
 
 
 $result = $connect->query($sql);
+
+
+}
 
 ?>
 <!DOCTYPE html>

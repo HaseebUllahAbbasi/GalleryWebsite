@@ -36,7 +36,10 @@ $result = $connect->query($sql);
         body {
             background-color: silver;
         }
-
+        .custom
+        {
+            box-shadow: 8px 8px 12px 4px rgba(0, 0, 0, 0.2), 8px 6px 20px 8px rgba(0, 0, 0, 0.19);
+        }
         .source {
             border: 1px solid #ddd;
             border-radius: 10px;
@@ -133,17 +136,71 @@ $result = $connect->query($sql);
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
-    <div class="container my-3">
+            
+    
+   
+            <div class="container my-3">
+                <div class="text-center">
+                <div class="col-  mb-3 custom" style="background-color:#6d8aaf; border-radius :20px;   margin:0px 10px;    border: 1px solid #977d7d; padding:  20px 50px;">
+            <?php
+               $sql_2 = "SELECT contest.id as id ,participanttable.id as pid,participanttable.profile  ,name,contestName, winningPrice,contest.descr,participanttable.descr as DescContest FROM `contest` INNER JOIN participanttable on contest.winnerId = participanttable.id where completed = 1 ORDER BY `contest`.`id` DESC";
+               $result_2 = $connect->query($sql_2);
+                if ($result_2->num_rows > 0) 
+                {
+                     $row = $result_2->fetch_assoc(); 
+                    
+                        echo '<h2 class="text-center my-3">  Previous  Contest</h2>';
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-6"> Contest Name :  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' .$row['contestName'] .'  </h3>';
+                        echo  '</div>';
+
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-4 "> Description :  </h3>';
+                        echo '<h3 class=" col-8 text-end "> ' .$row['descr'] .'  </h3>';
+                        
+                        echo  '</div>';
+
+                        
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-6"> Prize :  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' .$row['winningPrice'] .'  </h3>';
+                        echo  '</div>';
+
+                        
+                        echo '<div class="row">'; 
+                        echo '<h3 class=" col-6"> Status :  </h3>';
+                        echo '<h3 class=" col-6 text-end "> ' . 'Completed' .'  </h3>';
+                        echo  '</div>';
+                        echo '<h3 class="text-center"> Winner :  </h3>';
+
+                        echo '<div class="text-center my-3">'; 
+                        echo '<h3 class=""  style=" color: #ffffff;" > ' . $row['name'] .'  </h3>';
+
+                        echo '<img class="text-center" style="width: 100px;"; src="images/tropy.png">' ;
+                        echo '<img  class="" style="width: 100px; border-radius:200px"; src="upload/'. $row['profile'].'">' ;
+                        echo  '</div>';
+                        echo '<div class="d-flex justify-content-evenly">';
+                        echo  '</div> ';
+                } else 
+                {
+                    
+                    echo '<h2 class="text-center my-3"> No Data For Previous Contest   </h2>';
+                }
+                ?>
+            </div>
+
+                </div>
 
         <?php
+     
         if ($result->num_rows > 0) {
             echo  "<div class='row'>";
-
             while ($row = $result->fetch_assoc()) {
 
-                echo "<div class='col-3'>";
+                echo "<div class='col-md-3 col-sm-3 mb-3'>";
                 echo '
-                <div class="card" style="width: 18rem;">' .
+                <div class="card custom" style="width: 18rem;">' .
                     '<img  class="source mt-3"  src="upload/' . $row['source'] . '">' . '
                         <div class="card-body">
                             <h5 class="card-title text-center"> ' . $row['title']   . '</h5>

@@ -2,7 +2,7 @@
 require_once "connection.php";
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM contest";
+$sql = "SELECT contest.id , winnerId,completed, name,endTime ,winningPrice , contest.descr,contestName FROM `contest` INNER join participanttable on contest.id = participanttable.id";
 
 $result = $connect->query($sql);
 
@@ -103,7 +103,7 @@ $result = $connect->query($sql);
                 }  
                 else
 
-                    echo  $row['winnerId'] . " </td>     </tr>";
+                    echo  $row['name'] . " </td>     </tr>";
                
                 // print_r($row) . "<br>";
             }

@@ -34,6 +34,10 @@ $result_2 = $connect->query($sql_2);
             background-color: silver;
         }
 
+        .custom
+        {
+            box-shadow: 8px 8px 12px 4px rgba(0, 0, 0, 0.2), 8px 6px 20px 8px rgba(0, 0, 0, 0.19);
+        }
         .source {
             border: 1px solid #ddd;
             border-radius: 10px;
@@ -130,13 +134,12 @@ $result_2 = $connect->query($sql_2);
             while ($row = $result->fetch_assoc()) 
             {
                 // print_r($row);
-                echo "<div class='col-3 mb-3'>";
+                echo "<div class='col-3 mb-3  '>";
                 echo '
-                <div class="card" style="width: 18rem;">' .
+                <div class="card custom" style="width: 18rem;">' .
                     '<img  class="source mt-1" src="upload/' . $row['source'] . '">' . '
                         <div class="card-body">
                             <h3 class="card-title text-center"> ' . $row['title']   . '</h3>
-                            <h5 class="card-title text-center"> ' . 'By : '   .  'Simpl User'   . '</h5>
                                 <h6 class="card-text text-center" > ' .  $row['desciption']  . '  </h6>
                                 <h5 class="card-text text-center" > Price :  ' .  $row['price']  . '$  </h5>
                                 <h5 class="card-text text-center" > Votes  :  ' .  $row['vote_count']  . '  </h5>
@@ -150,10 +153,13 @@ $result_2 = $connect->query($sql_2);
 
 
                 echo "</div>";
+                 
             }
             echo  "</div>";
         } else 
         {
+
+            // <h5 class="card-title text-center"> ' . 'By : '   .  'Simpl User'   . '</h5>
 
             // <a href="./EditPhoto.php?id='.$row['id'].'&source='.$row['source'].'&title='. $row['title'].'&descrip=' . $row['desciption'].'&price= ' . $row['price'] . '     " class="btn btn-primary">Edit Photo</a>
 

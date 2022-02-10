@@ -8,7 +8,7 @@ $result_2 = $connect->query($sql_2);
 $row_2 = $result_2->fetch_assoc();
 
 
-$sql = "SELECT * FROM contest";
+$sql = "SELECT contest.id , winnerId,completed, name,endTime ,winningPrice , contest.descr,contestName FROM `contest` INNER join participanttable on contest.id = participanttable.id";
 $result = $connect->query($sql);
 
 ?>
@@ -104,7 +104,7 @@ $result = $connect->query($sql);
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
     <div class="container my-3">
-        <p class="display-2 text-center">All Events</p>
+        <p class="display-2 text-center">Participate Event</p>
         <?php
         if ($result->num_rows > 0) {
 
@@ -127,7 +127,7 @@ $result = $connect->query($sql);
 
                     }
                     else
-                    echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['winnerId'] . " </td>  . <td>"  . " </td>     </tr>";
+                    echo "<tr> <td>" . $row['id'] . " </td>  <td>" . $row['contestName'] . " </td>   <td>" . $row['descr'] . " </td>  <td>" . $row['winningPrice'] . " </td>    <td>" . $row['endTime'] . " </td>  <td>" . $row['name'] . " </td>  . <td>"  . " </td>     </tr>";
 
                     
                 } else 

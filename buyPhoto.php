@@ -29,22 +29,26 @@ session_start();
     
     $sql = "UPDATE `photostable` SET `owner`= $userId WHERE id = $photoId";
     $result = $connect->query($sql);
-    print_r($result);
+    // print_r($result);
 
     $sql = "UPDATE `user_table` SET `amount`= $newUserAmount WHERE id = $userId";
     $result = $connect->query($sql);
-    print_r($result);
+    // print_r($result);
     
     $sql = "UPDATE `participanttable` SET `amount`= $participanAmount WHERE id = $participantId";
     $result = $connect->query($sql);
-    print_r($result);
+    // print_r($result);
     
-    echo "Transection Completed";
+    echo "<script> alert(' Transection Completed');</script>";
+    echo ' <script> window.location.assign("http://localhost/galleryWebsite/userDash.php")</script>';
 
  }
  else
  {
-     echo "You dont have sufficient amount";
+     echo "<script> alert(' You dont have sufficient amount');</script>";
+
+     echo ' <script> window.location.assign("http://localhost/galleryWebsite/userDash.php")</script>';
+
  }
  
  

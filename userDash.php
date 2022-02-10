@@ -11,6 +11,17 @@ $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 $sql = "SELECT * FROM `photostable` WHERE owner is NULL";
 $result = $connect->query($sql);
 
+
+
+
+$id  = $_SESSION['Id'];
+// print_r($_SESSION);
+$sql_2 = "SELECT * FROM `user_table` where id  = $id";
+$result_2 = $connect->query($sql_2);
+$row_2 = $result_2->fetch_assoc();
+$id  = $_SESSION['Id'];
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +35,10 @@ $result = $connect->query($sql);
     <style>
         body {
             background-color: silver;
+        }
+        .custom
+        {
+            box-shadow: 8px 8px 12px 4px rgba(0, 0, 0, 0.2), 8px 6px 20px 8px rgba(0, 0, 0, 0.19);
         }
 
         .source {
@@ -81,6 +96,22 @@ $result = $connect->query($sql);
 </head>
 
 <body>
+<div class="container-fluid " style="padding: 10px 20px 5px 20px;">
+        <div >
+            <?php
+                echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, ".  $row_2['name']. "</p>";
+                echo "<a href='#'>";
+                echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/".$row_2['profile'] ."'>";
+
+                echo "</a>";
+                echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : ".  $row_2['amount']. "</p>";
+                
+            ?>
+            
+        </div>
+    </div>
+
+
 
     <div class="container">
     </div>
@@ -109,15 +140,16 @@ $result = $connect->query($sql);
         <!-- <p class="display-1 text-center"> to implement the Current Event Stats or render the No Evetns Running</p> -->
 
         <?php
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) 
+        {
             echo  "<div class='row'>";
 
             while ($row = $result->fetch_assoc()) {
                 
-                echo "<div class='col-3'>";
+                echo "<div class='col-md-4 col-sm-6'>";
                 echo '
-                <div class="card mt-3" style="width: 18rem; height: 30rem;">'. 
-                '<img class="source mt-3"   src="upload/' . $row['source'] . '">'.'
+                <div class="card mt-3 custom" style="width: 18rem; height: 30rem;">'. 
+                '<img class="source mt-3"   src="upload/' . $row['source_2'] . '">'.'
                         <div class="card-body">
                             <h5 class="card-title text-center"> ' . $row['title']   .'</h5>
                                 <p class="card-text text-center" > '.  $row['desciption']  .'  </p>
@@ -138,6 +170,7 @@ $result = $connect->query($sql);
 
 
                 echo "</div>";
+               
             }
 
 

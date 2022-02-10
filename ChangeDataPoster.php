@@ -85,18 +85,18 @@ $row =  $result->fetch_assoc();
 </head>
 
 <body>
-<div class="container-fluid " style="padding: 10px 20px 5px 20px;">
-        <div >
+    <div class="container-fluid " style="padding: 10px 20px 5px 20px;">
+        <div>
             <?php
-                echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, ".  $row['name']. "</p>";
-                echo "<a href='./ViewProfilePoster.php?id=".$row['id'] ." '>";
-                    echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/".$row['profile'] ."'>";
-                echo "</a>";
-                    echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Ratings  : ".  $row['ratings']. "</p>";
-                echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : ".  $row['amount']. "</p>";
-                
+            echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, " .  $row['name'] . "</p>";
+            echo "<a href='./ViewProfilePoster.php?id=" . $row['id'] . " '>";
+            echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/" . $row['profile'] . "'>";
+            echo "</a>";
+            echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Ratings  : " .  $row['ratings'] . "</p>";
+            echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : " .  $row['amount'] . "</p>";
+
             ?>
-            
+
         </div>
     </div>
 
@@ -121,10 +121,33 @@ $row =  $result->fetch_assoc();
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
-
-
     <div class="container  text-center">
-            
+            <div class="col-4 offset-4">
+            <form action="./poster_changeData.php" method="GET" >
+
+<div class="">
+    <h1 class="text-center">
+        Register Photographer
+    </h1>
+
+    <input class="form-control my-1" type="text" placeholder="First Name" name="firstName" id="firstName" required>
+    <input class="form-control my-1" type="text" name="lastName" id="lastName" placeholder="Last Name" required>
+    <input class="form-control my-1" type="text" placeholder="Email" name="email" id="email"  required>
+    <input class="form-control my-1" type="text" placeholder="Description" name="Description" id="Description" min="10" max="1000" required>
+ 
+
+    <div class="text-center">
+        <input type="submit" id="submit" class="my-3  col-4  btn btn-success" value="Change Data"></input>
+
+    </div>
+
+</form>
+
+
+            </div>
+
+    </div>
+
     </div>
 
 

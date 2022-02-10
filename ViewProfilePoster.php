@@ -40,7 +40,10 @@ $row =  $result->fetch_assoc();
             align-self: center;
         }
 
-
+        .custom
+        {
+            box-shadow: 8px 8px 12px 4px rgba(0, 0, 0, 0.2), 8px 6px 20px 8px rgba(0, 0, 0, 0.19);
+        }
         div {
             font-family: 'Trebuchet MS', sans-serif;
 
@@ -124,13 +127,11 @@ $row =  $result->fetch_assoc();
 
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
-
-
-    <div class="container col-5 offset-4 my-3">
+    <div class="container col-6 offset-5 my-5">
         <?php
         echo '<div class="text-center ">';
         
-        echo '<div class="card" style="width: 18rem;">
+        echo '<div class="card custom" style="width: 18rem;">
             <div class="text-center">
             
             <img class="card-img-top mt-3" src="./upload/'.$row['profile'] .'" style="height:200px; width:200px; border-radius:100px;" alt="Card image cap">
@@ -138,9 +139,9 @@ $row =  $result->fetch_assoc();
             </div>
             <div class="card-body">
               <h5 class="card-title text-center"> ' . $row['name'] . ' </h5>
-              <p class="card-text">' . $row['descr'] . ' </p>
+              <p class="card-text"> Description : ' . $row['descr'] . ' </p>
               <p class="card-text">' . "User@gmail.com" . ' </p>
-              <p class="card-text">' . "0900987721.com" . ' </p>
+              <p class="card-text">' . "0900987721" . ' </p>
               <a href="./ChangeDataPoster.php?id='.  $row['id'] . ' " class="btn btn-primary">Change Profile Data</a>
             </div>
           </div>';

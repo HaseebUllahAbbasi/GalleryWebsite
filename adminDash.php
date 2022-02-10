@@ -9,7 +9,7 @@ session_start();
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 $sql = "SELECT * FROM contest where completed = 0";
-$sql_2 = "SELECT * FROM `contest` INNER JOIN participanttable on contest.winnerId = participanttable.id where completed = 1 ORDER BY `contest`.`id` DESC";
+$sql_2 = "SELECT contest.id as id ,participanttable.id as pid,participanttable.profile  ,name,contestName, winningPrice,contest.descr,participanttable.descr as DescContest FROM `contest` INNER JOIN participanttable on contest.winnerId = participanttable.id where completed = 1 ORDER BY `contest`.`id` DESC";
 $result = $connect->query($sql);
 $result_2 = $connect->query($sql_2);
 ?>
@@ -24,6 +24,10 @@ $result_2 = $connect->query($sql_2);
 
     <title>Admin Dashboard</title>
     <style>
+        .custom
+        {
+            box-shadow: 8px 8px 12px 4px rgba(0, 0, 0, 0.2), 8px 6px 20px 8px rgba(0, 0, 0, 0.19);
+        }
         body {
             background-color: silver;
         }
@@ -101,7 +105,7 @@ $result_2 = $connect->query($sql_2);
     <div class="container my-3">
 
         <div class="d-flex justify-content-evenly">
-            <div class="col-6" style="background-color:yellowgreen; border-radius :20px; margin:0px 10px;border: 1px solid #977d7d; padding:  20px 50px;">
+            <div class="col-6 custom" style="background-color:#3ea57a; border-radius :20px; margin:0px 10px;border: 1px solid #977d7d; padding:  20px 50px;">
                 <?php
                 if ($result->num_rows > 0) 
                 {
@@ -141,7 +145,7 @@ $result_2 = $connect->query($sql_2);
                 }
                 ?>
             </div>
-            <div class="col-7" style="background-color:yellowgreen; border-radius :20px;   margin:0px 10px;    border: 1px solid #977d7d; padding:  20px 50px;">
+            <div class="col-7 custom" style="background-color:#6d8aaf; border-radius :20px;   margin:0px 10px;    border: 1px solid #977d7d; padding:  20px 50px;">
             <?php
                 if ($result_2->num_rows > 0) 
                 {
@@ -170,18 +174,21 @@ $result_2 = $connect->query($sql_2);
                         echo '<h3 class=" col-6"> Status :  </h3>';
                         echo '<h3 class=" col-6 text-end "> ' . 'Completed' .'  </h3>';
                         echo  '</div>';
-                        
-                        echo '<div class="row">'; 
-                        echo '<h3 class=" col-6"> Winner :  </h3>';
-                        echo '<h3 class=" col-6 text-end "> ' . $row['name'] .'  </h3>';
-                        echo  '</div>';
+                        echo '<h3 class="text-center"> Winner :  </h3>';
 
+                        echo '<div class="text-center my-3">'; 
+                        echo '<h3 class=""  style=" color: #ffffff;" > ' . $row['name'] .'  </h3>';
+
+                        echo '<img class="text-center" style="width: 100px;"; src="images/tropy.png">' ;
+                        echo '<img  class="" style="width: 100px; border-radius:200px"; src="upload/'. $row['profile'].'">' ;
+                        echo  '</div>';
                         echo '<div class="d-flex justify-content-evenly">';
                         echo '<a class="btn btn-primary " href="./viewEventAdmin.php?eventId='. $row['id'] .'"> View Contest </a>';          
                         echo  '</div> ';
-                } else {
+                } else 
+                {
                     
-                    echo '<h2 class="text-center my-3"> No Data Previous Contest   </h2>';
+                    echo '<h2 class="text-center my-3"> No Data For Previous Contest   </h2>';
                 }
                 ?>
             </div>

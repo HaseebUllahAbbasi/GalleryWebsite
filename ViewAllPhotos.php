@@ -30,6 +30,10 @@ $result = $connect->query($sql);
 
     <title>Photographer : All Photos</title>
     <style>
+           .custom
+        {
+            box-shadow: 8px 8px 12px 4px rgba(0, 0, 0, 0.2), 8px 6px 20px 8px rgba(0, 0, 0, 0.19);
+        }
         body {
             background-color: silver;
         }
@@ -133,14 +137,14 @@ $result = $connect->query($sql);
     <div class="container my-3">
 
         <?php
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) 
+        {
             echo  "<div class='row'>";
-
-            while ($row = $result->fetch_assoc()) {
-
-                echo "<div class='col-3 mb-3'>";
+            while ($row = $result->fetch_assoc()) 
+            {
+                echo "<div class='col-md-4  col-sm-6 mb-3'>";
                 echo '
-                <div class="card" style="width: 18rem;">' .
+                <div class="card custom" style="width: 18rem;">' .
                     '<img  class="source mt-1" src="upload/' . $row['source'] . '">' . '
                         <div class="card-body">
                             <h3 class="card-title text-center"> ' . $row['title']   . '</h3>

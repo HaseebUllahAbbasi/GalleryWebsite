@@ -6,9 +6,18 @@ session_start();
 require_once "connection.php";
 
 $connect = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-$sql = "SELECT * FROM contest";
+$sql = "SELECT contest.id , winnerId,completed, name,endTime ,winningPrice , contest.descr,contestName FROM `contest` INNER join participanttable on contest.id = participanttable.id";
 
 $result = $connect->query($sql);
+
+
+$id  = $_SESSION['Id'];
+// print_r($_SESSION);
+$sql_2 = "SELECT * FROM `user_table` where id  = $id";
+$result_2 = $connect->query($sql_2);
+$row_2 = $result_2->fetch_assoc();
+$id  = $_SESSION['Id'];
+
 
 ?>
 <!DOCTYPE html>
@@ -70,10 +79,22 @@ $result = $connect->query($sql);
 </head>
 
 <body>
+<div class="container-fluid " style="padding: 10px 20px 5px 20px;">
+        <div >
+            <?php
+                echo "<p class='d-inline display-5' style='margin-top:20px;'  > Hi, ".  $row_2['name']. "</p>";
+                echo "<a href='#'>";
+                echo " <img class='d-inline' style='width: 100px; height: 100px;     border-radius: 200px;'  src='./upload/".$row_2['profile'] ."'>";
 
-    <div class="container">
-        <div class="display-1 text-center mb-3">User Dashboard</div>
+                echo "</a>";
+                echo "<p class='d-inline display-6 float-right' style='float:right; margin: 20px 10px 5px 5px;' > Current Balance : ".  $row_2['amount']. "</p>";
+                
+            ?>
+            
+        </div>
     </div>
+
+
     <h1>
         <?php 
         if(!isset($_SESSION['Id']))
@@ -96,7 +117,12 @@ $result = $connect->query($sql);
         <li style="float:right"><a class="active" href="./login.php">Logout</a></li>
     </ul>
     <div class="container my-3">
-        <?php
+       
+    
+    <div class="text-center display-3">
+            All Events
+            </div>
+       <?php
         if ($result->num_rows > 0) 
         {
             echo "<table class='table table-striped'>";
@@ -114,7 +140,7 @@ $result = $connect->query($sql);
                 }  
                 else
 
-                    echo  $row['winnerId'] . " </td>     </tr>";
+                    echo  $row['name'] . " </td>     </tr>";
                  
                 // print_r($row) . "<br>";
             }
