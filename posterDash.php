@@ -140,15 +140,16 @@ $result = $connect->query($sql);
     
    
             <div class="container my-3">
-                <div class="text-center">
-                <div class="col-  mb-3 custom" style="background-color:#6d8aaf; border-radius :20px;   margin:0px 10px;    border: 1px solid #977d7d; padding:  20px 50px;">
+               
             <?php
                $sql_2 = "SELECT contest.id as id ,participanttable.id as pid,participanttable.profile  ,name,contestName, winningPrice,contest.descr,participanttable.descr as DescContest FROM `contest` INNER JOIN participanttable on contest.winnerId = participanttable.id where completed = 1 ORDER BY `contest`.`id` DESC";
                $result_2 = $connect->query($sql_2);
                 if ($result_2->num_rows > 0) 
                 {
-                     $row = $result_2->fetch_assoc(); 
                     
+                     $row = $result_2->fetch_assoc(); 
+                        echo ` <div class="text-center">
+                        <div class="col-  mb-3 custom" style="background-color:#6d8aaf; border-radius :20px;   margin:0px 10px;    border: 1px solid #977d7d; padding:  20px 50px;">`;
                         echo '<h2 class="text-center my-3">  Previous  Contest</h2>';
                         echo '<div class="row">'; 
                         echo '<h3 class=" col-6"> Contest Name :  </h3>';
@@ -182,15 +183,15 @@ $result = $connect->query($sql);
                         echo  '</div>';
                         echo '<div class="d-flex justify-content-evenly">';
                         echo  '</div> ';
+                        echo " </div>
+
+                        </div>";
                 } else 
                 {
                     
-                    echo '<h2 class="text-center my-3"> No Data For Previous Contest   </h2>';
                 }
                 ?>
-            </div>
-
-                </div>
+           
 
         <?php
      
